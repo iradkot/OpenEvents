@@ -83,6 +83,18 @@ app.post('/leaveEvent/:event_id/:user_id', function(req, res) {
   })
 })
 
+/// update Event with given obj like so :{title: title, name: name, etc..}
+app.put('/update_event/:event_id', ensureAuthenticated, function (req, res, next) {
+  var updated_obj = req.body;
+  console.log(updated_obj);
+  Beer.findByIdAndUpdate(req.params.event_id, { $set: updated_obj }, { new: true }, function (err, event) {
+    if (err) {
+      return next(err);
+    } else {
+      res.send(event);
+    }
+  });
+});
 
 
  
