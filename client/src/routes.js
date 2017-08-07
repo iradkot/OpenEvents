@@ -11,14 +11,20 @@ import Profile from './OpenEvents/Profile';
 import Authentication from './OpenEvents/Athentication';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
-const Routesss = () => (
+
+
+
+const Routesss = (props) => (
+     
     <div className="container">
         <Switch>
             <Route name="home" exact path='/' component={allEvents} />
-            <Route name="authentication"  path='/authorization/:token/:name'  component={Authentication} />
+            <Route name="authentication"  path='/authorization/:token/:name/:id' 
+            render={(routesProps)=> <Authentication updateUser={props.updateUser}  {...routesProps}/>}
+              />
             <Route name="about" exact path='/about' component={About} />
             <Route name="login" exact path='/login' component={SignIn} />
-            <Route name="profile" exact path='/profile/:user' component={Profile} />
+            <Route name="profile" exact path='/profile/:username' component={Profile} />
             <Route exact path='/addEvent' component={addEvent} />
             <Route path='/event-page/:eventid' component={EventPage} />
             <Route exact path='/register' component={Register} />

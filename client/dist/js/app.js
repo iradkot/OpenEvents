@@ -12341,13 +12341,47 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var App = function (_React$Component) {
   _inherits(App, _React$Component);
 
-  function App() {
+  function App(props) {
     _classCallCheck(this, App);
 
-    return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+
+    _this.updateUser = _this.updateUser.bind(_this);
+    _this.logout = _this.logout.bind(_this);
+    _this.state = { user: {} };
+    return _this;
   }
+  //constructor
+  //bind this
+
+
+  //componentdidmount 
+
 
   _createClass(App, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      if (localStorage.User) {
+        var user = JSON.parse(localStorage.User);
+        this.setState({ user: user });
+        console.log(user.name);
+      }
+    }
+    //  check if thwre is a user in the localstorage  - put in the state
+
+  }, {
+    key: 'logout',
+    value: function logout() {
+      localStorage.clear();
+      this.setState({ user: {} });
+      window.location.replace("http://localhost:3000/");
+    }
+  }, {
+    key: 'updateUser',
+    value: function updateUser(user) {
+      this.setState({ user: user });
+    }
+  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
@@ -12356,8 +12390,8 @@ var App = function (_React$Component) {
         _react2.default.createElement(
           'div',
           null,
-          _react2.default.createElement(_Header2.default, null),
-          _react2.default.createElement(_Routes2.default, null)
+          _react2.default.createElement(_Header2.default, { logout: this.logout }),
+          _react2.default.createElement(_Routes2.default, { updateUser: this.updateUser })
         )
       );
     }
@@ -24507,9 +24541,9 @@ var App = function (_React$Component) {
   function App(props) {
     _classCallCheck(this, App);
 
+    // this.logout = this.logout.bind(this);
     var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
-    _this.logout = _this.logout.bind(_this);
     _this.state = {
       user: {}
     };
@@ -24519,17 +24553,17 @@ var App = function (_React$Component) {
   _createClass(App, [{
     key: 'componentWillMount',
     value: function componentWillMount() {
+
       if (localStorage.length > 0) {
         var user1 = JSON.parse(localStorage.User);
         this.setState({ user: user1 });
+        console.log(user1.name);
       }
     }
-  }, {
-    key: 'logout',
-    value: function logout() {
-      localStorage.clear();
-      window.location.replace("http://localhost:3000/");
-    }
+    // logout() {
+    //   localStorage.clear();
+    //   window.location.replace("http://localhost:3000/");
+    // }
 
     // the animation of the menu
 
@@ -24551,6 +24585,8 @@ var App = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      var class_logout = localStorage.User ? "btn navbar-btn btn-primary" : "noShow";
+      var class_login = localStorage.User ? "noShow" : "btn navbar-btn btn-primary";
       return _react2.default.createElement(
         'header',
         null,
@@ -24589,19 +24625,9 @@ var App = function (_React$Component) {
                   null,
                   _react2.default.createElement(
                     _reactRouterDom.Link,
-                    { to: '/profile/user' },
+                    { to: '/profile/' + this.state.user.name },
                     'Profile'
                   )
-                ),
-                _react2.default.createElement(
-                  'li',
-                  null,
-                  _react2.default.createElement(
-                    'a',
-                    { target: '_self', href: '/auth/facebook', className: 'btn navbar-btn btn-primary' },
-                    'Login'
-                  ),
-                  ' '
                 )
               ),
               _react2.default.createElement(
@@ -24611,20 +24637,20 @@ var App = function (_React$Component) {
                   'li',
                   null,
                   _react2.default.createElement(
-                    _reactRouterDom.Link,
-                    { to: '/signup' },
-                    _react2.default.createElement('span', { className: 'glyphicon glyphicon-user' }),
-                    ' Sign Up'
+                    'a',
+                    { target: '_self', href: '/auth/facebook', className: class_login },
+                    _react2.default.createElement('span', { className: 'glyphicon glyphicon-log-in' }),
+                    ' Login'
                   )
                 ),
                 _react2.default.createElement(
                   'li',
                   null,
                   _react2.default.createElement(
-                    _reactRouterDom.Link,
-                    { to: '/login' },
-                    _react2.default.createElement('span', { className: 'glyphicon glyphicon-log-in' }),
-                    ' Login'
+                    'a',
+                    { target: '_self', href: '#', onClick: this.props.logout, className: class_logout },
+                    _react2.default.createElement('span', { className: 'glyphicon glyphicon-log-out' }),
+                    ' Logout'
                   )
                 )
               )
@@ -27840,6 +27866,8 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
@@ -27888,7 +27916,7 @@ var _reactRouterDom = __webpack_require__(17);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Routesss = function Routesss() {
+var Routesss = function Routesss(props) {
     return _react2.default.createElement(
         'div',
         { className: 'container' },
@@ -27896,10 +27924,14 @@ var Routesss = function Routesss() {
             _reactRouterDom.Switch,
             null,
             _react2.default.createElement(_reactRouterDom.Route, { name: 'home', exact: true, path: '/', component: _allEvents2.default }),
-            _react2.default.createElement(_reactRouterDom.Route, { name: 'authentication', path: '/authorization/:token/:name', component: _Athentication2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { name: 'authentication', path: '/authorization/:token/:name/:id',
+                render: function render(routesProps) {
+                    return _react2.default.createElement(_Athentication2.default, _extends({ updateUser: props.updateUser }, routesProps));
+                }
+            }),
             _react2.default.createElement(_reactRouterDom.Route, { name: 'about', exact: true, path: '/about', component: _About2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { name: 'login', exact: true, path: '/login', component: _SignIn2.default }),
-            _react2.default.createElement(_reactRouterDom.Route, { name: 'profile', exact: true, path: '/profile/:user', component: _Profile2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { name: 'profile', exact: true, path: '/profile/:username', component: _Profile2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/addEvent', component: _addEvent2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { path: '/event-page/:eventid', component: _EventPage2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/register', component: _RegisterForm2.default }),
@@ -28339,6 +28371,13 @@ var EventPage = function (_React$Component) {
         value: function componentWillMount() {
             this.getEvent();
         }
+        // tester 
+
+    }, {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            console.log(this.state.eventObj);
+        }
     }, {
         key: 'deleteEvent',
         value: function deleteEvent() {
@@ -28410,7 +28449,7 @@ var EventPage = function (_React$Component) {
                     { className: 'row' },
                     'And the event id is - ',
                     this.props.match.params.eventid,
-                    ', */} and the object is - ',
+                    ', and the object is - ',
                     this.state.eventObj.title
                 ),
                 _react2.default.createElement(
@@ -28465,6 +28504,7 @@ exports.default = EventPage;
 
 
 function hasToBeYours() {}
+// cheking if the user conected true the localstorage
 function registerRef() {
     if (localStorage.length > 0) {
         return true;
@@ -28866,7 +28906,7 @@ var App = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      console.log(this.state.user);
+
       return _react2.default.createElement(
         'div',
         null,
@@ -28901,12 +28941,6 @@ var App = function (_React$Component) {
             null,
             'User about me : ',
             this.state.user.aboutme
-          ),
-          _react2.default.createElement(
-            'li',
-            null,
-            'User events : ',
-            this.state.user.myevents.length
           )
         )
       );
@@ -28956,7 +28990,8 @@ var App = function (_React$Component) {
         _this.conected = _this.conected.bind(_this);
         _this.state = {
             name: _this.props.match.params.name,
-            token: _this.props.match.params.token
+            token: _this.props.match.params.token,
+            id: _this.props.match.params.id
         };
         return _this;
     }
@@ -28968,6 +29003,7 @@ var App = function (_React$Component) {
         value: function conected() {
             console.log(this.props);
             var User = this.state;
+            this.props.updateUser(User);
             localStorage.setItem("User", JSON.stringify(User));
         }
     }, {
@@ -28979,7 +29015,7 @@ var App = function (_React$Component) {
         key: 'render',
         value: function render() {
 
-            return _react2.default.createElement(_reactRouterDom.Redirect, { to: '../../' });
+            return _react2.default.createElement(_reactRouterDom.Redirect, { to: '/' });
         }
     }]);
 
