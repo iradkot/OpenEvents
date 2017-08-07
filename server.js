@@ -3,6 +3,8 @@ var bodyParser = require('body-parser');
 var Promise = require('promise');
 var path = require('path');
 const app = express();
+var authRoutes = require('./routes/authRoutes');
+var passport = require('./server/models/passport');
 // declaring mongoose name of the db --- SocialEventsDB
 const mongoose = require("mongoose");
 mongoose.connect('mongodb://localhost/socialEventsDB', function(){
@@ -17,11 +19,18 @@ const Event = require('./server/models/event.js');
 // tell the app to look for static files in these directories
 app.use(express.static('./server/static/'));
 app.use(express.static('./client/dist/'));
+app.use(express.static('node_modules'));
 
 // body parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+
+// FACEBOOK
+// passport initialize 
+
+app.use(passport.initialize());
+app.use('/auth', authRoutes);
 
 
 // Handles Success / Failure , and Returns data
@@ -84,17 +93,17 @@ app.post('/leaveEvent/:event_id/:user_id', function(req, res) {
 })
 
 /// update Event with given obj like so :{title: title, name: name, etc..}
-app.put('/update_event/:event_id', ensureAuthenticated, function (req, res, next) {
-  var updated_obj = req.body;
-  console.log(updated_obj);
-  Beer.findByIdAndUpdate(req.params.event_id, { $set: updated_obj }, { new: true }, function (err, event) {
-    if (err) {
-      return next(err);
-    } else {
-      res.send(event);
-    }
-  });
-});
+// app.put('/update_event/:event_id', ensureAuthenticated, function (req, res, next) {
+//   var updated_obj = req.body;
+//   console.log(updated_obj);
+//   Beer.findByIdAndUpdate(req.params.event_id, { $set: updated_obj }, { new: true }, function (err, event) {
+//     if (err) {
+//       return next(err);
+//     } else {
+//       res.send(event);
+//     }
+//   });
+// });
 
 
  

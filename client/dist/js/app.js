@@ -24530,100 +24530,102 @@ var App = function (_React$Component) {
       localStorage.clear();
       window.location.replace("http://localhost:3000/");
     }
+
+    // the animation of the menu
+
+  }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      console.log("works sticky");
+      $(function () {
+        $(window).scroll(function () {
+          var winTop = $(window).scrollTop();
+          if (winTop >= 30) {
+            $("body").addClass("sticky-header");
+          } else {
+            $("body").removeClass("sticky-header");
+          }
+        });
+      });
+    }
   }, {
     key: 'render',
     value: function render() {
-      var className = localStorage.length > 0 ? "noShow" : "show";
-      var className2 = localStorage.length > 0 ? "Show" : "noShow";
-      console.log(this.state.user);
-      var userId = '';
-      if (localStorage.length > 0) {
-        if (Array.isArray(this.state.user)) {
-          userId = this.state.user[0]._id;
-        } else {
-          userId = this.state.user._id;
-        }
-      }
       return _react2.default.createElement(
-        'nav',
-        { className: 'navbar navbar-inverse' },
+        'header',
+        null,
         _react2.default.createElement(
-          'div',
-          { className: 'container-fluid' },
+          'nav',
+          { className: 'navbar  sti' },
           _react2.default.createElement(
             'div',
-            { className: 'collapse navbar-collapse', id: 'myNavbar' },
+            { className: 'container-fluid' },
             _react2.default.createElement(
-              'ul',
-              { className: 'nav navbar-nav' },
+              'div',
+              { className: 'collapse navbar-collapse', id: 'myNavbar' },
               _react2.default.createElement(
-                'li',
-                null,
+                'ul',
+                { className: 'nav navbar-nav' },
                 _react2.default.createElement(
-                  _reactRouterDom.Link,
-                  { to: '/' },
-                  'Home'
+                  'li',
+                  null,
+                  _react2.default.createElement(
+                    _reactRouterDom.Link,
+                    { to: '/' },
+                    'Home'
+                  )
+                ),
+                _react2.default.createElement(
+                  'li',
+                  null,
+                  _react2.default.createElement(
+                    _reactRouterDom.Link,
+                    { to: '/about' },
+                    'about'
+                  )
+                ),
+                _react2.default.createElement(
+                  'li',
+                  null,
+                  _react2.default.createElement(
+                    _reactRouterDom.Link,
+                    { to: '/profile/user' },
+                    'Profile'
+                  )
+                ),
+                _react2.default.createElement(
+                  'li',
+                  null,
+                  _react2.default.createElement(
+                    'a',
+                    { target: '_self', href: '/auth/facebook', className: 'btn navbar-btn btn-primary' },
+                    'Login'
+                  ),
+                  ' '
                 )
               ),
               _react2.default.createElement(
-                'li',
-                null,
+                'ul',
+                { className: 'nav navbar-nav navbar-right' },
                 _react2.default.createElement(
-                  _reactRouterDom.Link,
-                  { to: '/allEvents' },
-                  'All Events'
-                )
-              ),
-              _react2.default.createElement(
-                'li',
-                null,
+                  'li',
+                  null,
+                  _react2.default.createElement(
+                    _reactRouterDom.Link,
+                    { to: '/signup' },
+                    _react2.default.createElement('span', { className: 'glyphicon glyphicon-user' }),
+                    ' Sign Up'
+                  )
+                ),
                 _react2.default.createElement(
-                  _reactRouterDom.Link,
-                  { to: '/about' },
-                  'About'
-                )
-              ),
-              _react2.default.createElement(
-                'li',
-                null,
-                _react2.default.createElement(
-                  _reactRouterDom.Link,
-                  { className: className2, to: '/profile/' + userId },
-                  'Profile'
-                )
-              )
-            ),
-            _react2.default.createElement(
-              'ul',
-              { className: 'nav navbar-nav navbar-right' },
-              _react2.default.createElement(
-                'li',
-                { className: className },
-                _react2.default.createElement(
-                  _reactRouterDom.Link,
-                  { to: '/register' },
-                  _react2.default.createElement('span', { className: 'glyphicon glyphicon-user' }),
-                  ' Sign Up'
-                )
-              ),
-              _react2.default.createElement(
-                'li',
-                { className: className },
-                _react2.default.createElement(
-                  _reactRouterDom.Link,
-                  { to: '/login' },
-                  _react2.default.createElement('span', { className: 'glyphicon glyphicon-log-in' }),
-                  ' Login'
-                )
-              ),
-              _react2.default.createElement(
-                'li',
-                { className: className2, onClick: this.logout },
-                _react2.default.createElement(
-                  _reactRouterDom.Link,
-                  { to: '/' },
-                  _react2.default.createElement('span', { className: 'glyphicon glyphicon-log-in' }),
-                  ' Logout'
+                  'li',
+                  null,
+                  _react2.default.createElement(
+                    _reactRouterDom.Link,
+                    { to: '/login' },
+                    _react2.default.createElement('span', { className: 'glyphicon glyphicon-log-in' }),
+                    ' Login'
+                  )
                 )
               )
             )
@@ -27878,6 +27880,10 @@ var _Profile = __webpack_require__(261);
 
 var _Profile2 = _interopRequireDefault(_Profile);
 
+var _Athentication = __webpack_require__(262);
+
+var _Athentication2 = _interopRequireDefault(_Athentication);
+
 var _reactRouterDom = __webpack_require__(17);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -27889,12 +27895,12 @@ var Routesss = function Routesss() {
         _react2.default.createElement(
             _reactRouterDom.Switch,
             null,
-            _react2.default.createElement(_reactRouterDom.Route, { name: 'home', exact: true, path: '/', component: _OpenEvents2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { name: 'home', exact: true, path: '/', component: _allEvents2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { name: 'authentication', path: '/authorization/:token/:name', component: _Athentication2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { name: 'about', exact: true, path: '/about', component: _About2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { name: 'login', exact: true, path: '/login', component: _SignIn2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { name: 'profile', exact: true, path: '/profile/:user', component: _Profile2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/addEvent', component: _addEvent2.default }),
-            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/allEvents', component: _allEvents2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { path: '/event-page/:eventid', component: _EventPage2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/register', component: _RegisterForm2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { path: '*', component: _2.default })
@@ -28908,6 +28914,76 @@ var App = function (_React$Component) {
   }]);
 
   return App;
+}(_react2.default.Component);
+
+exports.default = App;
+
+/***/ }),
+/* 262 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(17);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var App = function (_React$Component) {
+    _inherits(App, _React$Component);
+
+    function App(props) {
+        _classCallCheck(this, App);
+
+        var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+
+        _this.conected = _this.conected.bind(_this);
+        _this.state = {
+            name: _this.props.match.params.name,
+            token: _this.props.match.params.token
+        };
+        return _this;
+    }
+    //  Save the token and the name of connected user to local storage
+
+
+    _createClass(App, [{
+        key: 'conected',
+        value: function conected() {
+            console.log(this.props);
+            var User = this.state;
+            localStorage.setItem("User", JSON.stringify(User));
+        }
+    }, {
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            this.conected();
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+
+            return _react2.default.createElement(_reactRouterDom.Redirect, { to: '../../' });
+        }
+    }]);
+
+    return App;
 }(_react2.default.Component);
 
 exports.default = App;
