@@ -1,20 +1,20 @@
 import React from 'react';
-import weatherApp from './weatherApp';
-import Page404 from './weatherApp/common/404';
-import About from './weatherApp/common/About';
-import SignIn from './weatherApp/common/SignIn';
-import EventPage from './weatherApp/EventPage';
-import addEvent from './weatherApp/addEvent';
-import allEvents from './weatherApp/allEvents';
-import Register from './WeatherApp/common/RegisterForm';
-import Profile from './weatherApp/Profile';
+import OpenEvents from './OpenEvents';
+import Page404 from './OpenEvents/common/404';
+import About from './OpenEvents/common/About';
+import SignIn from './OpenEvents/common/SignIn';
+import EventPage from './OpenEvents/EventPage';
+import addEvent from './OpenEvents/addEvent';
+import allEvents from './OpenEvents/allEvents';
+import Register from './OpenEvents/common/RegisterForm';
+import Profile from './OpenEvents/Profile';
 
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 const Routesss = () => (
     <div className="container">
         <Switch>
-            <Route name="home" exact path='/' component={weatherApp} />
+            <Route name="home" exact path='/' component={OpenEvents} />
             <Route name="about" exact path='/about' component={About} />
             <Route name="login" exact path='/login' component={SignIn} />
             <Route name="profile" exact path='/profile/:user' component={Profile} />

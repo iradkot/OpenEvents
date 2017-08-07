@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDom from 'react-dom';
-import Header from './WeatherApp/common/Header';
-import Register from './WeatherApp/common/RegisterForm';
+import Header from './OpenEvents/common/Header';
+import Register from './OpenEvents/common/RegisterForm';
 import Routesss from './Routes';
 import {BrowserRouter} from 'react-router-dom';
 
