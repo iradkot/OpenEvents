@@ -5,6 +5,9 @@ var path = require('path');
 const app = express();
 var authRoutes = require('./routes/authRoutes');
 var passport = require('./server/models/passport');
+// 
+var expressJWT = require('express-jwt');
+var ensureAuthenticated = expressJWT({ secret: 'thisIsTopSecret' });
 // declaring mongoose name of the db --- SocialEventsDB
 const mongoose = require("mongoose");
 mongoose.connect('mongodb://localhost/socialEventsDB', function(){
