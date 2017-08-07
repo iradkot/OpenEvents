@@ -8,18 +8,18 @@ import addEvent from './OpenEvents/addEvent';
 import allEvents from './OpenEvents/allEvents';
 import Register from './OpenEvents/common/RegisterForm';
 import Profile from './OpenEvents/Profile';
-
+import Authentication from './OpenEvents/Athentication';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 const Routesss = () => (
     <div className="container">
         <Switch>
-            <Route name="home" exact path='/' component={OpenEvents} />
+            <Route name="home" exact path='/' component={allEvents} />
+            <Route name="authentication"  path='/authorization/:token/:name'  component={Authentication} />
             <Route name="about" exact path='/about' component={About} />
             <Route name="login" exact path='/login' component={SignIn} />
             <Route name="profile" exact path='/profile/:user' component={Profile} />
             <Route exact path='/addEvent' component={addEvent} />
-            <Route exact path='/allEvents' component={allEvents} />
             <Route path='/event-page/:eventid' component={EventPage} />
             <Route exact path='/register' component={Register} />
             <Route path="*" component={Page404} />
