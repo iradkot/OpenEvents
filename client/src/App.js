@@ -6,13 +6,41 @@ import Routesss from './Routes';
 import {BrowserRouter} from 'react-router-dom';
 
 class App extends React.Component {
+constructor(props) {
+  super(props);
+  this.updateUser = this.updateUser.bind(this);
+  this.logout = this.logout.bind(this);
+  this.state = {user: {}};
+}
+//constructor
+//bind this
+
+
+//componentdidmount 
+componentDidMount(){
+  if(localStorage.User) {
+    let user = JSON.parse(localStorage.User);
+      this.setState({ user: user });
+      console.log(user.name);
+     
+  }
+}
+//  check if thwre is a user in the localstorage  - put in the state
+  logout() {
+    localStorage.clear();
+      this.setState({ user: {} });
+    window.location.replace("http://localhost:3000/");
+  }
+  updateUser(user){
+    this.setState({user:user});
+  }
   render() {
     return (
       <BrowserRouter>
         <div>
-          <Header/>
+          <Header logout={this.logout}/>
           {/* <Register /> */}
-          <Routesss/>
+          <Routesss updateUser={this.updateUser}/>
         </div>
       </BrowserRouter>
 

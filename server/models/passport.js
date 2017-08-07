@@ -46,7 +46,7 @@ passport.use(new FacebookStrategy({
                         id: newUser.id,
                         name: newUser.name,
                     }, 'thisIsTopSecret', { expiresIn: "7d" });
-                    return done(null,{token: token, name: newUser.name});
+                    return done(null,{token: token, name: newUser.name, id: newUser.id});
                 } 
             });
             

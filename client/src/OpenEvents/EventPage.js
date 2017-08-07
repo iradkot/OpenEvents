@@ -26,6 +26,11 @@ class EventPage extends React.Component {
     }
     componentWillMount() {
         this.getEvent();
+        
+    }
+    // tester 
+    componentDidMount(){
+        console.log(this.state.eventObj)
     }
     deleteEvent() {
         if (registerRef()&&this.state.eventOwner) {
@@ -89,7 +94,7 @@ class EventPage extends React.Component {
         return (
             <div className="container">
                 <div className="row">
-                    And the event id is - {this.props.match.params.eventid}, */}
+                    And the event id is - {this.props.match.params.eventid}, 
                       and the object is - {this.state.eventObj.title}
                 </div>
                 <h1 className={class_loading}>Loading!</h1>  
@@ -127,6 +132,7 @@ export default EventPage;
 function hasToBeYours() {
 
 }
+    // cheking if the user conected true the localstorage
 function registerRef() {
     if (localStorage.length > 0) {
         return true;

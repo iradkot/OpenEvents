@@ -4,21 +4,24 @@ import { Link } from 'react-router-dom';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.logout = this.logout.bind(this);
+    // this.logout = this.logout.bind(this);
     this.state = {
       user: {}
     }
   }
   componentWillMount() {
-    if(localStorage.length>0){
-    let user1 = JSON.parse(localStorage.User);
-    this.setState({ user: user1});
+
+    if (localStorage.length > 0) {
+      let user1 = JSON.parse(localStorage.User);
+      this.setState({ user: user1 });
+      console.log(user1.name);
     }
+
   }
-  logout() {
-    localStorage.clear();
-    window.location.replace("http://localhost:3000/");
-  }
+  // logout() {
+  //   localStorage.clear();
+  //   window.location.replace("http://localhost:3000/");
+  // }
 
   // the animation of the menu
   componentDidMount() {
@@ -34,8 +37,10 @@ class App extends React.Component {
       })
     })
   }
-  
- render() {
+
+  render() {
+    let class_logout = localStorage.User ? "btn navbar-btn btn-primary" : "noShow";
+    let class_login = localStorage.User ? "noShow" : "btn navbar-btn btn-primary";
     return (
       <header>
         <nav className="navbar  sti">
@@ -44,12 +49,11 @@ class App extends React.Component {
               <ul className="nav navbar-nav">
                 <li><Link to="/">Home</Link></li>
                 <li><Link to="/about">about</Link></li>
-                <li><Link to='/profile/user'>Profile</Link></li>
-                <li><a target="_self" href="/auth/facebook" className="btn navbar-btn btn-primary">Login</a> </li>
+                <li><Link to={'/profile/' + this.state.user.name}>Profile</Link></li>
               </ul>
               <ul className="nav navbar-nav navbar-right">
-                <li><Link to="/signup"><span className="glyphicon glyphicon-user"></span> Sign Up</Link></li>
-                <li><Link to="/login"><span className="glyphicon glyphicon-log-in"></span> Login</Link></li>
+                <li><a target="_self" href="/auth/facebook" className={class_login}><span className="glyphicon glyphicon-log-in"></span> Login</a></li>
+                <li><a target="_self" href="#" onClick={this.props.logout} className={class_logout}><span className="glyphicon glyphicon-log-out"></span> Logout</a></li>
               </ul>
             </div>
           </div>
