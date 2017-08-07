@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var User = require('./user.js');
 
 //schema of the individual user 
 var eventSchema = new mongoose.Schema({

@@ -39,7 +39,7 @@ class EventPage extends React.Component {
         this.setState({loading: true});
         if (registerRef()) {
             let user_obj = JSON.parse(localStorage.User);
-            let user_id = user_obj._id;
+            let user_id = user_obj.id;
             let event_id = this.state.eventObj._id;
             if (this.state.participate) {
                 alert('You are already signed in to this event');
@@ -63,7 +63,7 @@ class EventPage extends React.Component {
         this.setState({loading: true});
         if (registerRef()) {
             let user_obj = JSON.parse(localStorage.User);
-            let user_id = user_obj._id;
+            let user_id = user_obj.id;
             let event_id = this.state.eventObj._id;
 
             if (this.state.participate) {

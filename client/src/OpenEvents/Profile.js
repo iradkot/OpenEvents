@@ -41,11 +41,11 @@ class App extends React.Component {
       <div >
         <h1>Profile Page</h1>
         <ul>
-          <li>User  first Name : {this.state.user.first_name}</li>
+          <li>User  first Name : {this.state.user.id}</li>
           <li>User last Name : {this.state.user.last_name}</li>
           <li>User age : {this.state.user.age}</li>
           <li>User about me : {this.state.user.aboutme}</li>
-          <li>User events : {this.state.user.myevents.length}</li> 
+          {/* <li>User events : {this.state.user.myevents.length}</li>  */}
         </ul>
       </div>
 

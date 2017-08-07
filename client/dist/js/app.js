@@ -24551,6 +24551,8 @@ var App = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      var class_logout = localStorage.User ? "btn navbar-btn btn-primary" : "noShow";
+      var class_login = localStorage.User ? "noShow" : "btn navbar-btn btn-primary";
       return _react2.default.createElement(
         'header',
         null,
@@ -24592,16 +24594,6 @@ var App = function (_React$Component) {
                     { to: '/profile/user' },
                     'Profile'
                   )
-                ),
-                _react2.default.createElement(
-                  'li',
-                  null,
-                  _react2.default.createElement(
-                    'a',
-                    { target: '_self', href: '/auth/facebook', className: 'btn navbar-btn btn-primary' },
-                    'Login'
-                  ),
-                  ' '
                 )
               ),
               _react2.default.createElement(
@@ -24611,20 +24603,20 @@ var App = function (_React$Component) {
                   'li',
                   null,
                   _react2.default.createElement(
-                    _reactRouterDom.Link,
-                    { to: '/signup' },
-                    _react2.default.createElement('span', { className: 'glyphicon glyphicon-user' }),
-                    ' Sign Up'
+                    'a',
+                    { target: '_self', href: '/auth/facebook', className: class_login },
+                    _react2.default.createElement('span', { className: 'glyphicon glyphicon-log-in' }),
+                    ' Login'
                   )
                 ),
                 _react2.default.createElement(
                   'li',
                   null,
                   _react2.default.createElement(
-                    _reactRouterDom.Link,
-                    { to: '/login' },
-                    _react2.default.createElement('span', { className: 'glyphicon glyphicon-log-in' }),
-                    ' Login'
+                    'a',
+                    { target: '_self', href: '#', onClick: this.logout, className: class_logout },
+                    _react2.default.createElement('span', { className: 'glyphicon glyphicon-log-out' }),
+                    ' Logout'
                   )
                 )
               )
@@ -27896,7 +27888,7 @@ var Routesss = function Routesss() {
             _reactRouterDom.Switch,
             null,
             _react2.default.createElement(_reactRouterDom.Route, { name: 'home', exact: true, path: '/', component: _allEvents2.default }),
-            _react2.default.createElement(_reactRouterDom.Route, { name: 'authentication', path: '/authorization/:token/:name', component: _Athentication2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { name: 'authentication', path: '/authorization/:token/:name/:id', component: _Athentication2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { name: 'about', exact: true, path: '/about', component: _About2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { name: 'login', exact: true, path: '/login', component: _SignIn2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { name: 'profile', exact: true, path: '/profile/:user', component: _Profile2.default }),
@@ -28356,7 +28348,7 @@ var EventPage = function (_React$Component) {
             this.setState({ loading: true });
             if (registerRef()) {
                 var user_obj = JSON.parse(localStorage.User);
-                var user_id = user_obj._id;
+                var user_id = user_obj.id;
                 var event_id = this.state.eventObj._id;
                 if (this.state.participate) {
                     alert('You are already signed in to this event');
@@ -28380,7 +28372,7 @@ var EventPage = function (_React$Component) {
             this.setState({ loading: true });
             if (registerRef()) {
                 var user_obj = JSON.parse(localStorage.User);
-                var user_id = user_obj._id;
+                var user_id = user_obj.id;
                 var event_id = this.state.eventObj._id;
 
                 if (this.state.participate) {
@@ -28882,7 +28874,7 @@ var App = function (_React$Component) {
             'li',
             null,
             'User  first Name : ',
-            this.state.user.first_name
+            this.state.user.id
           ),
           _react2.default.createElement(
             'li',
@@ -28901,12 +28893,6 @@ var App = function (_React$Component) {
             null,
             'User about me : ',
             this.state.user.aboutme
-          ),
-          _react2.default.createElement(
-            'li',
-            null,
-            'User events : ',
-            this.state.user.myevents.length
           )
         )
       );
@@ -28956,6 +28942,7 @@ var App = function (_React$Component) {
         _this.conected = _this.conected.bind(_this);
         _this.state = {
             name: _this.props.match.params.name,
+            id: _this.props.match.params.id,
             token: _this.props.match.params.token
         };
         return _this;
@@ -28979,7 +28966,7 @@ var App = function (_React$Component) {
         key: 'render',
         value: function render() {
 
-            return _react2.default.createElement(_reactRouterDom.Redirect, { to: '../../' });
+            return _react2.default.createElement(_reactRouterDom.Redirect, { to: '../../../' });
         }
     }]);
 

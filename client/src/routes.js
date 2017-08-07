@@ -15,7 +15,7 @@ const Routesss = () => (
     <div className="container">
         <Switch>
             <Route name="home" exact path='/' component={allEvents} />
-            <Route name="authentication"  path='/authorization/:token/:name'  component={Authentication} />
+            <Route name="authentication"  path='/authorization/:token/:name/:id'  component={Authentication} />
             <Route name="about" exact path='/about' component={About} />
             <Route name="login" exact path='/login' component={SignIn} />
             <Route name="profile" exact path='/profile/:user' component={Profile} />

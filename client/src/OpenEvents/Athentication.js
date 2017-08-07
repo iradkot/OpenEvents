@@ -8,6 +8,7 @@ constructor(props){
     this.conected = this.conected.bind(this);
     this.state = {
         name: this.props.match.params.name,
+        id: this.props.match.params.id,
         token: this.props.match.params.token
     }
 }
@@ -23,7 +24,7 @@ componentWillMount(){
 }
 render(){
     
-    return <Redirect to={'../../'} />
+    return <Redirect to={'../../../'} />
    
 }
 }

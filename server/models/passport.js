@@ -7,8 +7,8 @@ var User = require('./user.js');
 var FacebookStrategy = require('passport-facebook').Strategy;
 
 passport.use(new FacebookStrategy({
-    clientID: '1824156720958521',
-    clientSecret: '232b64b86ff73de1bf8b3d310ca5882f',
+    clientID: '876157962537537',
+    clientSecret: 'e5950a3683a0574913711066ee5671a0',
     callbackURL: 'http://localhost:3000/auth/facebook/callback',
     profileFields: ['email', 'displayName', 'picture']
 },
@@ -46,7 +46,7 @@ passport.use(new FacebookStrategy({
                         id: newUser.id,
                         name: newUser.name,
                     }, 'thisIsTopSecret', { expiresIn: "7d" });
-                    return done(null,{token: token, name: newUser.name});
+                    return done(null,{token: token, name: newUser.name,id:newUser.id});
                 } 
             });
             
