@@ -18,7 +18,7 @@ class addEvent extends React.Component {
         street: "",
         num: "",
       },
-      user: {_id: JSON.parse(localStorage.User)._id}
+      user: {_id: JSON.parse(localStorage.User).id}
     }
   }
   handleSubmit(event) {

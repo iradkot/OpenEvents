@@ -2,9 +2,6 @@
     width: 200px;
     height: 100px;
 } */
-.noShow {
-    display: none !important;
-}
 
 /*SCTICKY HEADER*/
 
@@ -145,4 +142,7 @@ body.sticky-header header h1 {
 /*Main Container*/
 .main-container{
     width: 1000px !important;
+}
+.noShow {
+    display: none !important;
 }
