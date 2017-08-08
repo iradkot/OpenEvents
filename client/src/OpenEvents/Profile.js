@@ -6,30 +6,19 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      user: {
-        first_name: '',
-        last_name: '',
-        age: 0,
-        aboutme: '',
-        myevents: []
-      }
+      user: props.user
     }
     
-    console.log(this.state.user);
+    console.log(props.user);
   }
 
   componentWillMount() {
-    var retrievedObject = localStorage.getItem('User');
-    var User = JSON.parse(retrievedObject);
-    this.setState({ user: User});
-    var that = this;
-    // 
      axios.get(`/profile`, {
-     params:{ _id: this.props.match.params.user
+     params:{ _id: this.state.user.id
     }})
       .then(res => {
         var User = res.data;
-        that.setState({ user: User });
+        this.setState({ user: User });
       });
     
   }
@@ -41,11 +30,11 @@ class App extends React.Component {
       <div >
         <h1>Profile Page</h1>
         <ul>
-          <li>User  first Name : {this.state.user.first_name}</li>
-          <li>User last Name : {this.state.user.last_name}</li>
-          <li>User age : {this.state.user.age}</li>
-          <li>User about me : {this.state.user.aboutme}</li>
-          {/*<li>User events : {this.state.user.myevents.length}</li> */}
+          <li>User   Name : {this.state.user.name}</li>
+          <li>User img  : <img src={this.state.user.myPic} /> </li>
+          <li>User email : {this.state.user.email}</li>
+          <li>User logins : {this.state.user.loginCount}</li>
+          <li>User events : {this.state.user.events_signed}</li> 
         </ul>
       </div>
 

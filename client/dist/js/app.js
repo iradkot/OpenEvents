@@ -12391,7 +12391,7 @@ var App = function (_React$Component) {
           'div',
           null,
           _react2.default.createElement(_Header2.default, { logout: this.logout }),
-          _react2.default.createElement(_Routes2.default, { updateUser: this.updateUser })
+          _react2.default.createElement(_Routes2.default, { updateUser: this.updateUser, user: this.state.user })
         )
       );
     }
@@ -24566,27 +24566,25 @@ var App = function (_React$Component) {
     // }
 
     // the animation of the menu
+    // componentDidMount() {
+    //   console.log("works sticky")
+    //   $(function () {
+    //     $(window).scroll(function () {
+    //       var winTop = $(window).scrollTop();
+    //       if (winTop >= 30) {
+    //         $("body").addClass("sticky-header");
+    //       } else {
+    //         $("body").removeClass("sticky-header");
+    //       }
+    //     })
+    //   })
+    // }
 
-  }, {
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      console.log("works sticky");
-      $(function () {
-        $(window).scroll(function () {
-          var winTop = $(window).scrollTop();
-          if (winTop >= 30) {
-            $("body").addClass("sticky-header");
-          } else {
-            $("body").removeClass("sticky-header");
-          }
-        });
-      });
-    }
   }, {
     key: 'render',
     value: function render() {
-      var class_logout = localStorage.User ? "btn navbar-btn btn-secondry" : "noShow";
-      var class_login = localStorage.User ? "noShow" : "btn navbar-btn btn-primary";
+      var class_logout = localStorage.User ? "log logAnim" : "noShow";
+      var class_login = localStorage.User ? "noShow" : "log logAnim";
       return _react2.default.createElement(
         'header',
         null,
@@ -24595,13 +24593,13 @@ var App = function (_React$Component) {
           { className: 'navbar  sti' },
           _react2.default.createElement(
             'div',
-            { className: 'container-fluid' },
+            { className: 'container' },
             _react2.default.createElement(
               'div',
               { className: 'collapse navbar-collapse', id: 'myNavbar' },
               _react2.default.createElement(
                 'ul',
-                { className: 'nav navbar-nav' },
+                { className: 'nav navbar-nav pageNav' },
                 _react2.default.createElement(
                   'li',
                   null,
@@ -24618,15 +24616,6 @@ var App = function (_React$Component) {
                     _reactRouterDom.Link,
                     { to: '/about' },
                     'about'
-                  )
-                ),
-                _react2.default.createElement(
-                  'li',
-                  null,
-                  _react2.default.createElement(
-                    _reactRouterDom.Link,
-                    { to: '/profile/' + this.state.user.name },
-                    'Profile'
                   )
                 )
               ),
@@ -27923,7 +27912,9 @@ var Routesss = function Routesss(props) {
         _react2.default.createElement(
             _reactRouterDom.Switch,
             null,
-            _react2.default.createElement(_reactRouterDom.Route, { name: 'home', exact: true, path: '/', component: _allEvents2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { name: 'home', exact: true, path: '/', render: function render() {
+                    return _react2.default.createElement(_allEvents2.default, { user: props.user });
+                } }),
             _react2.default.createElement(_reactRouterDom.Route, { name: 'authentication', path: '/authorization/:token/:name/:id',
                 render: function render(routesProps) {
                     return _react2.default.createElement(_Athentication2.default, _extends({ updateUser: props.updateUser }, routesProps));
@@ -27931,7 +27922,10 @@ var Routesss = function Routesss(props) {
             }),
             _react2.default.createElement(_reactRouterDom.Route, { name: 'about', exact: true, path: '/about', component: _About2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { name: 'login', exact: true, path: '/login', component: _SignIn2.default }),
-            _react2.default.createElement(_reactRouterDom.Route, { name: 'profile', exact: true, path: '/profile/:username', component: _Profile2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { name: 'profile', exact: true, path: '/profile/' + props.user.name,
+                render: function render() {
+                    return _react2.default.createElement(_Profile2.default, { user: props.user });
+                } }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/addEvent', component: _addEvent2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { path: '/event-page/:eventid', component: _EventPage2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/register', component: _RegisterForm2.default }),
@@ -28559,22 +28553,26 @@ var addEvent = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (addEvent.__proto__ || Object.getPrototypeOf(addEvent)).call(this, props));
 
     _this.handleSubmit = _this.handleSubmit.bind(_this);
+    _this.handleChange = _this.handleChange.bind(_this);
+    _this.today = _this.today.bind(_this);
     _this.state = {
       title: "",
       desc: "",
-      category: "",
       pic: "",
       participants_amount: 10,
-      date: new Date("2015-03-25T12:00:00Z"),
+      user: {},
+      date: "",
+      category: "shabat",
       location: {
         city: "",
         street: "",
-        num: ""
-      },
-      user: { _id: JSON.parse(localStorage.User).id }
+        num: 0
+      }
     };
     return _this;
   }
+  // send the vent data to the server
+
 
   _createClass(addEvent, [{
     key: 'handleSubmit',
@@ -28585,20 +28583,53 @@ var addEvent = function (_React$Component) {
       _axios2.default.post('/create_event/' + this.state.user._id, {
         title: this.state.title,
         desc: this.state.desc,
+        pic: this.state.pic,
+        date: this.state.date,
         category: this.state.category,
         location: {
           city: this.state.location.city,
           street: this.state.location.street,
           num: this.state.location.num
         },
-        pic: this.state.pic,
-        participants_amount: this.state.participants_amount,
-        date: this.state.date
+        participants_amount: this.state.participants_amount
       }).then(function (res) {
-        var arrEvent = res.data;
-        console.log(res.data);
-        window.location.replace("http://localhost:3000/");
+        // redirect to the event page
+      }).catch(function (err, res) {
+        //if status code 401 - redirect login, else show error. 
       });
+    }
+    // set the category with data from select from
+
+  }, {
+    key: 'handleChange',
+    value: function handleChange(event) {
+      this.setState({ category: event.target.value });
+    }
+
+    // cteate today date and set state of the date
+
+  }, {
+    key: 'today',
+    value: function today() {
+      var today = new Date();
+      var dd = today.getDate();
+      var mm = today.getMonth() + 1; //January is 0!
+      var yyyy = today.getFullYear();
+      if (dd < 10) {
+        dd = '0' + dd;
+      }
+      if (mm < 10) {
+        mm = '0' + mm;
+      }
+      today = yyyy + '-' + dd + '-' + mm;
+      this.setState({ date: today });
+    }
+    // use before the rendering
+
+  }, {
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      this.today();
     }
   }, {
     key: 'render',
@@ -28624,20 +28655,8 @@ var addEvent = function (_React$Component) {
               { htmlFor: 'Title' },
               'Title :'
             ),
-            _react2.default.createElement('input', { type: 'text', required: 'true', className: 'form-control', id: 'title', placeholder: 'Enter Event Title', value: this.state.title, onChange: function onChange(event) {
+            _react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'title', placeholder: 'Enter Event Title', value: this.state.title, onChange: function onChange(event) {
                 return _this2.setState({ title: event.target.value });
-              } })
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'form-group' },
-            _react2.default.createElement(
-              'label',
-              { htmlFor: 'Category' },
-              'Category :'
-            ),
-            _react2.default.createElement('input', { type: 'text', required: 'true', className: 'form-control', id: 'category', placeholder: 'Enter Event category', value: this.state.category, onChange: function onChange(event) {
-                return _this2.setState({ category: event.target.value });
               } })
           ),
           _react2.default.createElement(
@@ -28648,7 +28667,7 @@ var addEvent = function (_React$Component) {
               { htmlFor: 'desc' },
               'Enter description of the event:'
             ),
-            _react2.default.createElement('input', { type: 'text', required: 'true', className: 'form-control', id: 'desc', placeholder: 'Enter description', value: this.state.desc, onChange: function onChange(event) {
+            _react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'desc', placeholder: 'Enter description', value: this.state.desc, onChange: function onChange(event) {
                 return _this2.setState({ desc: event.target.value });
               } })
           ),
@@ -28660,8 +28679,20 @@ var addEvent = function (_React$Component) {
               { htmlFor: 'pic' },
               'Enter picture url for the event:'
             ),
-            _react2.default.createElement('input', { type: 'text', required: 'true', className: 'form-control', id: 'pic', placeholder: 'Enter picture url', value: this.state.pic, onChange: function onChange(event) {
+            _react2.default.createElement('input', { type: 'pic', className: 'form-control', id: 'pic', placeholder: 'Enter picture url', value: this.state.pic, onChange: function onChange(event) {
                 return _this2.setState({ pic: event.target.value });
+              } })
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'form-group' },
+            _react2.default.createElement(
+              'label',
+              { htmlFor: 'pic' },
+              'Enter picture url for the event:'
+            ),
+            _react2.default.createElement('input', { type: 'date', className: 'form-control', value: this.state.date, onChange: function onChange(event) {
+                return _this2.setState({ date: event.target.value });
               } })
           ),
           _react2.default.createElement(
@@ -28681,12 +28712,33 @@ var addEvent = function (_React$Component) {
             { className: 'form-group' },
             _react2.default.createElement(
               'label',
-              { htmlFor: 'date' },
-              'Enter the date for the event:'
-            ),
-            _react2.default.createElement('input', { type: 'text', required: 'true', className: 'form-control', id: 'date', placeholder: 'Enter date', value: this.state.date, onChange: function onChange(event) {
-                return _this2.setState({ date: event.target.value });
-              } })
+              null,
+              'Pick The Category Of the Event:',
+              _react2.default.createElement(
+                'select',
+                { value: this.state.value, onChange: this.handleChange },
+                _react2.default.createElement(
+                  'option',
+                  { value: 'shabat' },
+                  'Shabat'
+                ),
+                _react2.default.createElement(
+                  'option',
+                  { value: 'sport' },
+                  'Sport'
+                ),
+                _react2.default.createElement(
+                  'option',
+                  { value: 'art' },
+                  'Art'
+                ),
+                _react2.default.createElement(
+                  'option',
+                  { value: 'meetUp' },
+                  'Meet Up'
+                )
+              )
+            )
           ),
           _react2.default.createElement(
             'h2',
@@ -28701,7 +28753,7 @@ var addEvent = function (_React$Component) {
               { htmlFor: 'city' },
               'City:'
             ),
-            _react2.default.createElement('input', { type: 'text', required: 'true', className: 'form-control', id: 'city', placeholder: 'Enter The City', value: this.state.location.city, onChange: function onChange(event) {
+            _react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'city', placeholder: 'Enter The City', value: this.state.location.city, onChange: function onChange(event) {
                 var location = Object.assign({}, _this2.state.location, { city: event.target.value });_this2.setState({ location: location });
               } })
           ),
@@ -28713,7 +28765,7 @@ var addEvent = function (_React$Component) {
               { htmlFor: 'street' },
               'Street:'
             ),
-            _react2.default.createElement('input', { type: 'text', required: 'true', className: 'form-control', id: 'street', placeholder: 'Enter The Street', value: this.state.location.street, onChange: function onChange(event) {
+            _react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'street', placeholder: 'Enter The Street', value: this.state.location.street, onChange: function onChange(event) {
                 var location = Object.assign({}, _this2.state.location, { street: event.target.value });_this2.setState({ location: location });
               } })
           ),
@@ -28725,13 +28777,13 @@ var addEvent = function (_React$Component) {
               { htmlFor: 'numHouse' },
               'Number Of The House:'
             ),
-            _react2.default.createElement('input', { type: 'number', required: 'true', className: 'form-control', id: 'numHouse', placeholder: 'Enter The Number Of The House', value: this.state.location.num, onChange: function onChange(event) {
+            _react2.default.createElement('input', { type: 'number', className: 'form-control', id: 'numHouse', placeholder: 'Enter The Number Of The House', value: this.state.location.num, onChange: function onChange(event) {
                 var location = Object.assign({}, _this2.state.location, { num: event.target.value });_this2.setState({ location: location });
               } })
           ),
           _react2.default.createElement(
             'button',
-            { type: 'submit', required: 'true', className: 'btn btn-default' },
+            { type: 'submit', className: 'btn btn-default' },
             'Submit'
           )
         )
@@ -28781,6 +28833,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+// import FaBeer from 'react-icons/fa/beer';
+
 var App = function (_React$Component) {
   _inherits(App, _React$Component);
 
@@ -28789,9 +28843,12 @@ var App = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
+    _this.showUserEvents = _this.showUserEvents.bind(_this);
     _this.state = {
-      events: [], user: localStorage.User
+      events: [],
+      user: _this.props.user
     };
+    console.log(_this.props.user);
     return _this;
   }
 
@@ -28800,10 +28857,61 @@ var App = function (_React$Component) {
     value: function componentWillMount() {
       var _this2 = this;
 
+      console.log("allEvents user");
+      console.log(this.state.user);
+      this.setState({ user: this.props.user });
+      // getting the user from DB
+      _axios2.default.get('/profile', {
+        params: {
+          _id: this.state.user.id
+        }
+      }).then(function (res) {
+        var User = res.data;
+        _this2.setState({ user: User });
+      });
+      // get events from DB
       _axios2.default.get('/events').then(function (res) {
         var arrEvent = res.data;
         _this2.setState({ events: arrEvent });
       });
+    }
+  }, {
+    key: 'showUserEvents',
+    value: function showUserEvents() {
+      if (this.state.user.events_signed > 0) {
+        return this.this.state.user.events_signed.map(function (event, index) {
+          return _react2.default.createElement(
+            'ul',
+            null,
+            _react2.default.createElement(
+              'li',
+              null,
+              event
+            )
+          );
+        });
+      } else {
+        return _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(
+            'a',
+            { href: '#' },
+            _react2.default.createElement(
+              'h5',
+              { className: 'profilePointer' },
+              _react2.default.createElement('i', { className: 'fa fa-address-card-o', href: '#', 'aria-hidden': 'true' }),
+              ' ',
+              'Crate Evnent'
+            )
+          ),
+          _react2.default.createElement(
+            'h3',
+            { className: 'noEvTit' },
+            'You have no events'
+          )
+        );
+      }
     }
   }, {
     key: 'render',
@@ -28812,6 +28920,47 @@ var App = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         null,
+        _react2.default.createElement(
+          'div',
+          { className: 'container ' },
+          _react2.default.createElement(
+            'div',
+            { className: 'row' },
+            _react2.default.createElement(
+              'div',
+              { className: 'col-md-3 profileContainer' },
+              _react2.default.createElement(
+                'div',
+                { className: 'profileHolder' },
+                _react2.default.createElement(
+                  'div',
+                  { className: 'profilePointer' },
+                  _react2.default.createElement(
+                    'a',
+                    { href: '#' },
+                    _react2.default.createElement('img', { src: this.state.user.myPic, className: 'prileImg' }),
+                    ' ',
+                    _react2.default.createElement(
+                      'span',
+                      { className: 'profileName' },
+                      this.state.user.name
+                    )
+                  )
+                ),
+                _react2.default.createElement(
+                  'div',
+                  null,
+                  this.showUserEvents()
+                )
+              )
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'col-md-9' },
+              _react2.default.createElement(_Events2.default, { events: this.state.events })
+            )
+          )
+        ),
         _react2.default.createElement(
           'h1',
           null,
@@ -28829,8 +28978,7 @@ var App = function (_React$Component) {
               )
             )
           )
-        ),
-        _react2.default.createElement(_Events2.default, { events: this.state.events })
+        )
       );
     }
   }]);
@@ -28880,32 +29028,23 @@ var App = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
     _this.state = {
-      user: {
-        first_name: '',
-        last_name: '',
-        age: 0,
-        aboutme: '',
-        myevents: []
-      }
+      user: props.user
     };
 
-    console.log(_this.state.user);
+    console.log(props.user);
     return _this;
   }
 
   _createClass(App, [{
     key: 'componentWillMount',
     value: function componentWillMount() {
-      var retrievedObject = localStorage.getItem('User');
-      var User = JSON.parse(retrievedObject);
-      this.setState({ user: User });
-      var that = this;
-      // 
+      var _this2 = this;
+
       _axios2.default.get('/profile', {
-        params: { _id: this.props.match.params.user
+        params: { _id: this.state.user.id
         } }).then(function (res) {
         var User = res.data;
-        that.setState({ user: User });
+        _this2.setState({ user: User });
       });
     }
   }, {
@@ -28926,26 +29065,33 @@ var App = function (_React$Component) {
           _react2.default.createElement(
             'li',
             null,
-            'User  first Name : ',
-            this.state.user.first_name
+            'User   Name : ',
+            this.state.user.name
           ),
           _react2.default.createElement(
             'li',
             null,
-            'User last Name : ',
-            this.state.user.last_name
+            'User img  : ',
+            _react2.default.createElement('img', { src: this.state.user.myPic }),
+            ' '
           ),
           _react2.default.createElement(
             'li',
             null,
-            'User age : ',
-            this.state.user.age
+            'User email : ',
+            this.state.user.email
           ),
           _react2.default.createElement(
             'li',
             null,
-            'User about me : ',
-            this.state.user.aboutme
+            'User logins : ',
+            this.state.user.loginCount
+          ),
+          _react2.default.createElement(
+            'li',
+            null,
+            'User events : ',
+            this.state.user.events_signed
           )
         )
       );

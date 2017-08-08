@@ -59,8 +59,6 @@ app.get('/users', function(req,res,next){
 
 //join event
 app.post('/joinEvent/:event_id/:user_id', function(req, res) {
-  console.log("user?");
-  console.log(req.user);
   var event_id = req.params.event_id;
   var user_id = req.params.user_id;
   Event.findOne({_id: event_id}).exec(function (err, event) {
@@ -114,7 +112,6 @@ app.post('/leaveEvent/:event_id/:user_id', function(req, res) {
  
 //delete event
 app.delete('/deleteEvent/:eventId', function (req, res) {
-  console.log('dsa');
     Event.findOne({ _id: req.params.eventId }).remove().exec(handler(res));
 });
 
@@ -179,27 +176,17 @@ app.post('/create_event/:id', function(req, res,next){
     participants: [],
     date: req.body.date,
     createdby: req.params.id
-  });
+  })
 
   newEvent.save(function(err,data){
    User.findOneAndUpdate({_id: data.createdby }, {$push : {myevents:data.id}}, handler(res,next))
   });
 })
-//test event
-// var testEvent = new Event({
-//     title: 'test',
-//     desc: 'created by imaginary user thats why',
-//     category: 'sport',
-//     pic: 'http://www.limontasport.com/wp-content/uploads/2016/03/limonta-sport-box-referenze-600x456.jpg',
-//     participants_amount: 4,
-//     participants: [],
-//     date: '01-01-01',
-//     createdby: 'mf515727939'
-//   });
-//   testEvent.save(function(err,data){
-//     console.log(err);
-//   });
 
+// // update user push event into myevents
+// app.put('/user', function (req, res) {
+//   res.send('Got a PUT request at /user')
+// })
  app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, './server/static/index.html'))
 })

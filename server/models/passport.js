@@ -7,8 +7,8 @@ var User = require('./user.js');
 var FacebookStrategy = require('passport-facebook').Strategy;
 
 passport.use(new FacebookStrategy({
-    clientID: '876157962537537',
-    clientSecret: 'e5950a3683a0574913711066ee5671a0',
+    clientID: '1824156720958521',
+    clientSecret: '232b64b86ff73de1bf8b3d310ca5882f',
     callbackURL: 'http://localhost:3000/auth/facebook/callback',
     profileFields: ['email', 'displayName', 'picture']
 },
