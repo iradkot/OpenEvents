@@ -25,13 +25,11 @@ class EventPage extends React.Component {
         }
     }
     componentWillMount() {
+        console.log(this.state.eventOwner);
         this.getEvent();
 
     }
     // tester 
-    componentDidMount() {
-        console.log(this.state.eventObj)
-    }
     deleteEvent() {
         if (registerRef() && this.state.eventOwner) {
             axios.delete(`/deleteEvent/${this.state.eventObj._id}`)
@@ -87,10 +85,10 @@ class EventPage extends React.Component {
         }
     }
     render() {
-        let class_join_btn = this.state.participate || this.state.eventOwner || this.state.eventFull || this.state.loading ? 'noShow' : "btn btn-large btn-block btn-primary";
-        let class_leave_btn = this.state.participate || this.state.loading ? "btn btn-large btn-block btn-warning" : 'noShow';
-        let class_delete_btn = this.state.eventOwner ? "btn btn-large btn-block btn-danger" : 'noShow';
-        let class_loading = this.state.loading ? "" : "noShow";
+        let class_join_btn = this.state.participate || this.state.eventOwner || this.state.eventFull || this.state.loading || !(localStorage.length>0) ? 'noShow' : "btn btn-large btn-block btn-primary";
+        let class_leave_btn = this.state.participate || this.state.loading || (localStorage.length>0) ? "btn btn-large btn-block btn-warning" : 'noShow';
+        let class_delete_btn = this.state.eventOwner || (localStorage.length>0) ? "btn btn-large btn-block btn-danger" : 'noShow';
+        let class_loading = this.state.loading  ? "" : "noShow";
         return (
             <div className="container">
                 <div className="row">
@@ -119,8 +117,10 @@ class EventPage extends React.Component {
                 if (localStorage.User) {
                     //checks if user joined allready to the event
                     let user_obj = JSON.parse(localStorage.User);
-                    let user_id = user_obj._id;
+                    let user_id = user_obj.id;
                     var eventFull;
+                    console.log(that.state.eventOwner);
+                    console.log(that.state.participate);
 
                     if (that.state.eventObj.participants.indexOf(user_id) > -1) {
                         that.setState({ participate: true });

@@ -39,7 +39,7 @@ class App extends React.Component {
   }
 
   render() {
-    let class_logout = localStorage.User ? "btn navbar-btn btn-primary" : "noShow";
+    let class_logout = localStorage.User ? "btn navbar-btn btn-secondry" : "noShow";
     let class_login = localStorage.User ? "noShow" : "btn navbar-btn btn-primary";
     return (
       <header>
