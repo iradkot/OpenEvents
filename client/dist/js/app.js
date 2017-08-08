@@ -28391,7 +28391,7 @@ var EventPage = function (_React$Component) {
             this.setState({ loading: true });
             if (registerRef()) {
                 var user_obj = JSON.parse(localStorage.User);
-                var user_id = user_obj._id;
+                var user_id = user_obj.id;
                 var event_id = this.state.eventObj._id;
                 if (this.state.participate) {
                     alert('You are already signed in to this event');
@@ -28405,6 +28405,8 @@ var EventPage = function (_React$Component) {
                         _this2.setState({ participate: true, loading: false });
                     });
                 }
+            } else {
+                this.setState({ loading: false });
             }
         }
     }, {
@@ -28433,9 +28435,9 @@ var EventPage = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            var class_join_btn = this.state.participate || this.state.eventOwner || this.state.eventFull || this.state.loading || !(localStorage.length > 0) ? 'noShow' : "btn btn-large btn-block btn-primary";
-            var class_leave_btn = this.state.participate || this.state.loading || localStorage.length > 0 ? "btn btn-large btn-block btn-warning" : 'noShow';
-            var class_delete_btn = this.state.eventOwner || localStorage.length > 0 ? "btn btn-large btn-block btn-danger" : 'noShow';
+            var class_join_btn = this.state.participate || this.state.eventOwner || this.state.eventFull || this.state.loading && !(localStorage.length > 0) ? 'noShow' : "btn btn-large btn-block btn-primary";
+            var class_leave_btn = this.state.participate || this.state.loading && localStorage.length > 0 ? "btn btn-large btn-block btn-warning" : 'noShow';
+            var class_delete_btn = this.state.eventOwner ? "btn btn-large btn-block btn-danger" : 'noShow';
             var class_loading = this.state.loading ? "" : "noShow";
             return _react2.default.createElement(
                 'div',
@@ -28569,7 +28571,7 @@ var addEvent = function (_React$Component) {
         street: "",
         num: ""
       },
-      user: { _id: JSON.parse(localStorage.User)._id }
+      user: { _id: JSON.parse(localStorage.User).id }
     };
     return _this;
   }

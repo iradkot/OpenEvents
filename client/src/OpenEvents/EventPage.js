@@ -42,7 +42,7 @@ class EventPage extends React.Component {
         this.setState({ loading: true });
         if (registerRef()) {
             let user_obj = JSON.parse(localStorage.User);
-            let user_id = user_obj._id;
+            let user_id = user_obj.id;
             let event_id = this.state.eventObj._id;
             if (this.state.participate) {
                 alert('You are already signed in to this event');
@@ -60,6 +60,9 @@ class EventPage extends React.Component {
                         this.setState({ participate: true, loading: false })
                     })
             }
+        }
+        else {
+            this.setState({loading: false});
         }
     }
     leaveEvent() {
@@ -85,9 +88,9 @@ class EventPage extends React.Component {
         }
     }
     render() {
-        let class_join_btn = this.state.participate || this.state.eventOwner || this.state.eventFull || this.state.loading || !(localStorage.length>0) ? 'noShow' : "btn btn-large btn-block btn-primary";
-        let class_leave_btn = this.state.participate || this.state.loading || (localStorage.length>0) ? "btn btn-large btn-block btn-warning" : 'noShow';
-        let class_delete_btn = this.state.eventOwner || (localStorage.length>0) ? "btn btn-large btn-block btn-danger" : 'noShow';
+        let class_join_btn = this.state.participate || this.state.eventOwner || this.state.eventFull || this.state.loading && !(localStorage.length>0) ? 'noShow' : "btn btn-large btn-block btn-primary";
+        let class_leave_btn = this.state.participate || this.state.loading && (localStorage.length>0) ? "btn btn-large btn-block btn-warning" : 'noShow';
+        let class_delete_btn = this.state.eventOwner? "btn btn-large btn-block btn-danger" : 'noShow';
         let class_loading = this.state.loading  ? "" : "noShow";
         return (
             <div className="container">
