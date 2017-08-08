@@ -24585,7 +24585,7 @@ var App = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var class_logout = localStorage.User ? "btn navbar-btn btn-primary" : "noShow";
+      var class_logout = localStorage.User ? "btn navbar-btn btn-secondry" : "noShow";
       var class_login = localStorage.User ? "noShow" : "btn navbar-btn btn-primary";
       return _react2.default.createElement(
         'header',
@@ -28369,15 +28369,11 @@ var EventPage = function (_React$Component) {
     _createClass(EventPage, [{
         key: 'componentWillMount',
         value: function componentWillMount() {
+            console.log(this.state.eventOwner);
             this.getEvent();
         }
         // tester 
 
-    }, {
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            console.log(this.state.eventObj);
-        }
     }, {
         key: 'deleteEvent',
         value: function deleteEvent() {
@@ -28437,9 +28433,9 @@ var EventPage = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            var class_join_btn = this.state.participate || this.state.eventOwner || this.state.eventFull || this.state.loading ? 'noShow' : "btn btn-large btn-block btn-primary";
-            var class_leave_btn = this.state.participate || this.state.loading ? "btn btn-large btn-block btn-warning" : 'noShow';
-            var class_delete_btn = this.state.eventOwner ? "btn btn-large btn-block btn-danger" : 'noShow';
+            var class_join_btn = this.state.participate || this.state.eventOwner || this.state.eventFull || this.state.loading || !(localStorage.length > 0) ? 'noShow' : "btn btn-large btn-block btn-primary";
+            var class_leave_btn = this.state.participate || this.state.loading || localStorage.length > 0 ? "btn btn-large btn-block btn-warning" : 'noShow';
+            var class_delete_btn = this.state.eventOwner || localStorage.length > 0 ? "btn btn-large btn-block btn-danger" : 'noShow';
             var class_loading = this.state.loading ? "" : "noShow";
             return _react2.default.createElement(
                 'div',
@@ -28489,8 +28485,10 @@ var EventPage = function (_React$Component) {
                 if (localStorage.User) {
                     //checks if user joined allready to the event
                     var user_obj = JSON.parse(localStorage.User);
-                    var user_id = user_obj._id;
+                    var user_id = user_obj.id;
                     var eventFull;
+                    console.log(that.state.eventOwner);
+                    console.log(that.state.participate);
 
                     if (that.state.eventObj.participants.indexOf(user_id) > -1) {
                         that.setState({ participate: true });
