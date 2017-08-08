@@ -11,6 +11,7 @@ var userSchema = new mongoose.Schema({
   email: mongoose.Schema.Types.Mixed,
   password: mongoose.Schema.Types.Mixed,
   myevents:[{type:mongoose.Schema.Types.ObjectId, ref: 'event'}],
+  events_signed:[{type:mongoose.Schema.Types.ObjectId, ref: 'event'}],
   loginCount: Number,
 });
 
