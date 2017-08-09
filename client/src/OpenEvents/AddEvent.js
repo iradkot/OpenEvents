@@ -13,7 +13,7 @@ class addEvent extends React.Component {
       desc: "",
       pic: "",
       participants_amount: 10,
-      user: {  },
+      user: this.props.user,
       date: "",
       category : "shabat",
         location: {
@@ -28,7 +28,7 @@ class addEvent extends React.Component {
     event.preventDefault();
     console.log("hi");
     console.log(this.state);
-    axios.post(`/create_event/${this.state.user._id}`, {
+    axios.post(`/create_event`, {
       title: this.state.title,
       desc: this.state.desc,
       pic: this.state.pic,
@@ -39,7 +39,8 @@ class addEvent extends React.Component {
           street:  this.state.location.street ,
           num:  this.state.location.num ,
         },
-        participants_amount: this.state.participants_amount
+        participants_amount: this.state.participants_amount,
+        createdby: this.state.user
     }).then(function(res){
 // redirect to the event page
     }).catch(function(err,res){
@@ -69,6 +70,14 @@ handleChange(event) {
   // use before the rendering
   componentWillMount() {
     this.today();
+    // get user info fro DB
+    axios.get(`/profile`, {
+     params:{ _id: this.state.user.id
+    }})
+      .then(res => {
+        var User = res.data;
+        this.setState({ user: User });
+      });
   }
  
   render() {

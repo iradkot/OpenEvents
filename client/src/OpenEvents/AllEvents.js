@@ -48,7 +48,7 @@ class App extends React.Component {
         )
     } else {
       return <div>
-      <a href="#"><h5 className="profilePointer"><i className="fa fa-address-card-o" href="#" aria-hidden="true"></i>{' '}Crate Evnent</h5></a>
+      <Link to="/addEvent"><h5 className="profilePointer"><i className="fa fa-address-card-o" href="#" aria-hidden="true"></i>{' '}Crate Evnent</h5></Link>
       <h3 className="noEvTit">You have no events</h3>
       </div>
     }
