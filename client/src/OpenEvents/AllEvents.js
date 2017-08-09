@@ -13,7 +13,6 @@ class App extends React.Component {
     this.state = {
       events: [],
     }
-    console.log(this.props.user)
   }
 
   componentWillMount() {

@@ -144,26 +144,24 @@ app.get('/user', function (req, res) {
       }
     });
 })
-// create the user
-app.post('/create_user', function(req, res,next){
-  var newUser = new User({
-    first_name: req.body.first_name,
-    last_name: req.body.last_name,
-    age: req.body.age,
-    aboutme: req.body.aboutme,
-    location:{
-      city: req.body.city,
-      street: req.body.street,
-      num: req.body.num
-    },
-    email:  req.body.email ,
-    password:  req.body.password 
-  })
-  console.log(newUser);
-  newUser.save(handler(res,next));
-  
-  
-})
+// // create the user
+// app.post('/create_user', function(req, res,next){
+//   var newUser = new User({
+//     first_name: req.body.first_name,
+//     last_name: req.body.last_name,
+//     age: req.body.age,
+//     aboutme: req.body.aboutme,
+//     location:{
+//       city: req.body.city,
+//       street: req.body.street,
+//       num: req.body.num
+//     },
+//     email:  req.body.email ,
+//     password:  req.body.password 
+//   })
+//   console.log(newUser);
+//   newUser.save(handler(res,next));
+// })
 
 // create the event
 app.post('/create_event', function(req, res,next){
@@ -172,6 +170,7 @@ app.post('/create_event', function(req, res,next){
     desc: req.body.desc,
     category: req.body.category,
     pic: req.body.pic,
+    location: req.body.location,
     participants_amount: req.body.participants_amount,
     participants: [],
     location:req.body.location,
