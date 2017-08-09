@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import EditEvent from './EditEvent';
 
 // const EventPage = ({ match }) => (
 //   <div>
@@ -16,8 +17,10 @@ class EventPage extends React.Component {
         this.joinEvent = this.joinEvent.bind(this);
         this.deleteEvent = this.deleteEvent.bind(this);
         this.leaveEvent = this.leaveEvent.bind(this);
+        this.editEvent = this.editEvent.bind(this);
         this.state = {
             eventObj: {},
+            editMode: false,
             eventFull: false,
             participate: false,
             eventOwner: false,
@@ -28,6 +31,10 @@ class EventPage extends React.Component {
         console.log(this.state.eventOwner);
         this.getEvent();
 
+    }
+
+    editEvent() {
+        this.setState({ editMode: true });
     }
     // tester 
     deleteEvent() {
@@ -62,7 +69,7 @@ class EventPage extends React.Component {
             }
         }
         else {
-            this.setState({loading: false});
+            this.setState({ loading: false });
         }
     }
     leaveEvent() {
@@ -88,24 +95,34 @@ class EventPage extends React.Component {
         }
     }
     render() {
-        let class_join_btn = this.state.participate || this.state.eventOwner || this.state.eventFull || this.state.loading && !(localStorage.length>0) ? 'noShow' : "btn btn-large btn-block btn-primary";
-        let class_leave_btn = this.state.participate || this.state.loading && (localStorage.length>0) ? "btn btn-large btn-block btn-warning" : 'noShow';
-        let class_delete_btn = this.state.eventOwner? "btn btn-large btn-block btn-danger" : 'noShow';
-        let class_loading = this.state.loading  ? "" : "noShow";
-        return (
-            <div className="container">
-                <div className="row">
-                    And the event id is - {this.props.match.params.eventid},
-                      and the object is - {this.state.eventObj.title}
+        let class_join_btn = this.state.participate || this.state.eventOwner || this.state.eventFull || this.state.loading && !(localStorage.length > 0) ? 'noShow' : "btn btn-large btn-block btn-primary";
+        let class_leave_btn = this.state.participate || this.state.loading && (localStorage.length > 0) ? "btn btn-large btn-block btn-warning" : 'noShow';
+        let class_delete_btn = this.state.eventOwner ? "btn btn-large btn-block btn-danger" : 'noShow';
+        let class_loading = this.state.loading ? "" : "noShow";
+
+        if (this.state.editMode) {
+
+            return (
+                <div>
+                <EditEvent eventObj={this.state.eventObj} />
                 </div>
-                <h1 className={class_loading}>Loading!</h1>
-                <button type="button" onClick={this.joinEvent} className={class_join_btn}>Join Event!</button>
-                <button type="button" onClick={this.leaveEvent} className={class_leave_btn}>Leave Event.</button>
-                <button type="button" onClick={this.deleteEvent} className={class_delete_btn}>Delete Event</button>
-
-
-            </div>
-        );
+            )
+        }
+        else {
+            return (
+                <div className="container">
+                    <div className="row">
+                        And the event id is - {this.props.match.params.eventid},
+                      and the object is - {this.state.eventObj.title}
+                    </div>
+                    <h1 className={class_loading}>Loading!</h1>
+                    <button type="button" onClick={this.joinEvent} className={class_join_btn}>Join Event!</button>
+                    <button type="button" onClick={this.leaveEvent} className={class_leave_btn}>Leave Event.</button>
+                    <button type="button" onClick={this.deleteEvent} className={class_delete_btn}>Delete Event</button>
+                    <button type="button" onClick={this.editEvent}>Edit event</button>
+                </div>
+            );
+        }
     }
     /// get the event to the event page + checks the user connection to the event
     getEvent() {
@@ -132,7 +149,7 @@ class EventPage extends React.Component {
                         that.setState({ eventOwner: true });
                     }
                 }
-                })
+            })
     }
 }
 export default EventPage;

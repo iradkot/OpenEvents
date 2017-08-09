@@ -1682,7 +1682,7 @@ var _prodInvariant = __webpack_require__(3),
     _assign = __webpack_require__(5);
 
 var CallbackQueue = __webpack_require__(75);
-var PooledClass = __webpack_require__(20);
+var PooledClass = __webpack_require__(21);
 var ReactFeatureFlags = __webpack_require__(76);
 var ReactReconciler = __webpack_require__(25);
 var Transaction = __webpack_require__(35);
@@ -1996,7 +1996,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 var _assign = __webpack_require__(5);
 
-var PooledClass = __webpack_require__(20);
+var PooledClass = __webpack_require__(21);
 
 var emptyFunction = __webpack_require__(9);
 var warning = __webpack_require__(2);
@@ -2468,6 +2468,12 @@ module.exports = DOMProperty;
 /* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
+module.exports = __webpack_require__(235);
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
  * Copyright 2014-present, Facebook, Inc.
@@ -2812,7 +2818,7 @@ module.exports = ReactElement;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2930,7 +2936,7 @@ module.exports = PooledClass;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2998,12 +3004,6 @@ module.exports = warning;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 22 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(235);
-
-/***/ }),
 /* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3025,7 +3025,7 @@ var _assign = __webpack_require__(5);
 var ReactBaseClasses = __webpack_require__(64);
 var ReactChildren = __webpack_require__(107);
 var ReactDOMFactories = __webpack_require__(111);
-var ReactElement = __webpack_require__(19);
+var ReactElement = __webpack_require__(20);
 var ReactPropTypes = __webpack_require__(115);
 var ReactVersion = __webpack_require__(117);
 
@@ -7324,7 +7324,7 @@ var locationsAreEqual = exports.locationsAreEqual = function locationsAreEqual(a
 
 exports.__esModule = true;
 
-var _warning = __webpack_require__(21);
+var _warning = __webpack_require__(22);
 
 var _warning2 = _interopRequireDefault(_warning);
 
@@ -7411,7 +7411,7 @@ exports.default = createTransitionManager;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_warning__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_invariant__);
@@ -8047,7 +8047,7 @@ module.exports = getIteratorFn;
 
 var ReactCurrentOwner = __webpack_require__(14);
 var ReactComponentTreeHook = __webpack_require__(8);
-var ReactElement = __webpack_require__(19);
+var ReactElement = __webpack_require__(20);
 
 var checkReactTypeSpec = __webpack_require__(112);
 
@@ -9013,7 +9013,7 @@ var _prodInvariant = __webpack_require__(3);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var PooledClass = __webpack_require__(20);
+var PooledClass = __webpack_require__(21);
 
 var invariant = __webpack_require__(1);
 
@@ -11446,7 +11446,7 @@ var isExtraneousPopstateEvent = exports.isExtraneousPopstateEvent = function isE
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_warning__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
@@ -11707,7 +11707,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(16);
 
-var _axios = __webpack_require__(22);
+var _axios = __webpack_require__(19);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -12420,7 +12420,7 @@ _reactDom2.default.render(_react2.default.createElement(App, null), document.get
 
 
 var PooledClass = __webpack_require__(108);
-var ReactElement = __webpack_require__(19);
+var ReactElement = __webpack_require__(20);
 
 var emptyFunction = __webpack_require__(9);
 var traverseAllChildren = __webpack_require__(109);
@@ -12979,7 +12979,7 @@ module.exports = KeyEscapeUtils;
 
 
 
-var ReactElement = __webpack_require__(19);
+var ReactElement = __webpack_require__(20);
 
 /**
  * Create a factory that creates HTML tag elements.
@@ -13300,7 +13300,7 @@ module.exports = ReactPropTypesSecret;
 
 
 
-var _require = __webpack_require__(19),
+var _require = __webpack_require__(20),
     isValidElement = _require.isValidElement;
 
 var factory = __webpack_require__(69);
@@ -13415,7 +13415,7 @@ module.exports = '15.6.1';
 var _require = __webpack_require__(64),
     Component = _require.Component;
 
-var _require2 = __webpack_require__(19),
+var _require2 = __webpack_require__(20),
     isValidElement = _require2.isValidElement;
 
 var ReactNoopUpdateQueue = __webpack_require__(65);
@@ -14321,7 +14321,7 @@ module.exports = factory;
 
 var _prodInvariant = __webpack_require__(24);
 
-var ReactElement = __webpack_require__(19);
+var ReactElement = __webpack_require__(20);
 
 var invariant = __webpack_require__(1);
 
@@ -15052,7 +15052,7 @@ module.exports = BeforeInputEventPlugin;
 
 var _assign = __webpack_require__(5);
 
-var PooledClass = __webpack_require__(20);
+var PooledClass = __webpack_require__(21);
 
 var getTextContentAccessor = __webpack_require__(74);
 
@@ -21214,7 +21214,7 @@ module.exports = flattenChildren;
 
 var _assign = __webpack_require__(5);
 
-var PooledClass = __webpack_require__(20);
+var PooledClass = __webpack_require__(21);
 var Transaction = __webpack_require__(35);
 var ReactInstrumentation = __webpack_require__(10);
 var ReactServerUpdateQueue = __webpack_require__(171);
@@ -21905,7 +21905,7 @@ var _assign = __webpack_require__(5);
 
 var EventListener = __webpack_require__(91);
 var ExecutionEnvironment = __webpack_require__(7);
-var PooledClass = __webpack_require__(20);
+var PooledClass = __webpack_require__(21);
 var ReactDOMComponentTree = __webpack_require__(6);
 var ReactUpdates = __webpack_require__(15);
 
@@ -22147,7 +22147,7 @@ module.exports = ReactInjection;
 var _assign = __webpack_require__(5);
 
 var CallbackQueue = __webpack_require__(75);
-var PooledClass = __webpack_require__(20);
+var PooledClass = __webpack_require__(21);
 var ReactBrowserEventEmitter = __webpack_require__(39);
 var ReactInputSelection = __webpack_require__(92);
 var ReactInstrumentation = __webpack_require__(10);
@@ -24805,7 +24805,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _warning = __webpack_require__(21);
+var _warning = __webpack_require__(22);
 
 var _warning2 = _interopRequireDefault(_warning);
 
@@ -25300,7 +25300,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _warning = __webpack_require__(21);
+var _warning = __webpack_require__(22);
 
 var _warning2 = _interopRequireDefault(_warning);
 
@@ -26261,7 +26261,7 @@ StaticRouter.childContextTypes = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_warning__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_warning__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_warning__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__matchPath__ = __webpack_require__(62);
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -26510,7 +26510,7 @@ exports.__esModule = true;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _warning = __webpack_require__(21);
+var _warning = __webpack_require__(22);
 
 var _warning2 = _interopRequireDefault(_warning);
 
@@ -27892,11 +27892,11 @@ var _EventPage = __webpack_require__(258);
 
 var _EventPage2 = _interopRequireDefault(_EventPage);
 
-var _addEvent = __webpack_require__(259);
+var _addEvent = __webpack_require__(260);
 
 var _addEvent2 = _interopRequireDefault(_addEvent);
 
-var _allEvents = __webpack_require__(260);
+var _allEvents = __webpack_require__(261);
 
 var _allEvents2 = _interopRequireDefault(_allEvents);
 
@@ -27904,11 +27904,11 @@ var _RegisterForm = __webpack_require__(99);
 
 var _RegisterForm2 = _interopRequireDefault(_RegisterForm);
 
-var _Profile = __webpack_require__(261);
+var _Profile = __webpack_require__(262);
 
 var _Profile2 = _interopRequireDefault(_Profile);
 
-var _Athentication = __webpack_require__(262);
+var _Athentication = __webpack_require__(263);
 
 var _Athentication2 = _interopRequireDefault(_Athentication);
 
@@ -27963,7 +27963,7 @@ var _Events = __webpack_require__(105);
 
 var _Events2 = _interopRequireDefault(_Events);
 
-var _axios = __webpack_require__(22);
+var _axios = __webpack_require__(19);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -28211,7 +28211,7 @@ var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _axios = __webpack_require__(22);
+var _axios = __webpack_require__(19);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -28324,9 +28324,13 @@ var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _axios = __webpack_require__(22);
+var _axios = __webpack_require__(19);
 
 var _axios2 = _interopRequireDefault(_axios);
+
+var _EditEvent = __webpack_require__(259);
+
+var _EditEvent2 = _interopRequireDefault(_EditEvent);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -28356,8 +28360,10 @@ var EventPage = function (_React$Component) {
         _this.joinEvent = _this.joinEvent.bind(_this);
         _this.deleteEvent = _this.deleteEvent.bind(_this);
         _this.leaveEvent = _this.leaveEvent.bind(_this);
+        _this.editEvent = _this.editEvent.bind(_this);
         _this.state = {
             eventObj: {},
+            editMode: false,
             eventFull: false,
             participate: false,
             eventOwner: false,
@@ -28371,6 +28377,11 @@ var EventPage = function (_React$Component) {
         value: function componentWillMount() {
             console.log(this.state.eventOwner);
             this.getEvent();
+        }
+    }, {
+        key: 'editEvent',
+        value: function editEvent() {
+            this.setState({ editMode: true });
         }
         // tester 
 
@@ -28439,38 +28450,53 @@ var EventPage = function (_React$Component) {
             var class_leave_btn = this.state.participate || this.state.loading && localStorage.length > 0 ? "btn btn-large btn-block btn-warning" : 'noShow';
             var class_delete_btn = this.state.eventOwner ? "btn btn-large btn-block btn-danger" : 'noShow';
             var class_loading = this.state.loading ? "" : "noShow";
-            return _react2.default.createElement(
-                'div',
-                { className: 'container' },
-                _react2.default.createElement(
+
+            if (this.state.editMode) {
+
+                return _react2.default.createElement(
                     'div',
-                    { className: 'row' },
-                    'And the event id is - ',
-                    this.props.match.params.eventid,
-                    ', and the object is - ',
-                    this.state.eventObj.title
-                ),
-                _react2.default.createElement(
-                    'h1',
-                    { className: class_loading },
-                    'Loading!'
-                ),
-                _react2.default.createElement(
-                    'button',
-                    { type: 'button', onClick: this.joinEvent, className: class_join_btn },
-                    'Join Event!'
-                ),
-                _react2.default.createElement(
-                    'button',
-                    { type: 'button', onClick: this.leaveEvent, className: class_leave_btn },
-                    'Leave Event.'
-                ),
-                _react2.default.createElement(
-                    'button',
-                    { type: 'button', onClick: this.deleteEvent, className: class_delete_btn },
-                    'Delete Event'
-                )
-            );
+                    null,
+                    _react2.default.createElement(_EditEvent2.default, { eventObj: this.state.eventObj })
+                );
+            } else {
+                return _react2.default.createElement(
+                    'div',
+                    { className: 'container' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'row' },
+                        'And the event id is - ',
+                        this.props.match.params.eventid,
+                        ', and the object is - ',
+                        this.state.eventObj.title
+                    ),
+                    _react2.default.createElement(
+                        'h1',
+                        { className: class_loading },
+                        'Loading!'
+                    ),
+                    _react2.default.createElement(
+                        'button',
+                        { type: 'button', onClick: this.joinEvent, className: class_join_btn },
+                        'Join Event!'
+                    ),
+                    _react2.default.createElement(
+                        'button',
+                        { type: 'button', onClick: this.leaveEvent, className: class_leave_btn },
+                        'Leave Event.'
+                    ),
+                    _react2.default.createElement(
+                        'button',
+                        { type: 'button', onClick: this.deleteEvent, className: class_delete_btn },
+                        'Delete Event'
+                    ),
+                    _react2.default.createElement(
+                        'button',
+                        { type: 'button', onClick: this.editEvent },
+                        'Edit event'
+                    )
+                );
+            }
         }
         /// get the event to the event page + checks the user connection to the event
 
@@ -28527,6 +28553,224 @@ function registerRef() {
 
 
 Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _axios = __webpack_require__(19);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var EditEvent = function (_React$Component) {
+    _inherits(EditEvent, _React$Component);
+
+    function EditEvent(props) {
+        _classCallCheck(this, EditEvent);
+
+        var _this = _possibleConstructorReturn(this, (EditEvent.__proto__ || Object.getPrototypeOf(EditEvent)).call(this, props));
+
+        _this.sendEdit = _this.sendEdit.bind(_this);
+        _this.state = {
+            event_id: _this.props.eventObj._id,
+            title: _this.props.eventObj.title,
+            desc: _this.props.eventObj.desc,
+            category: _this.props.eventObj.category,
+            pic: _this.props.eventObj.pic,
+            participants_amount: _this.props.eventObj.participants_amount,
+            date: _this.props.eventObj.date,
+            location: _this.props.eventObj.location
+        };
+        return _this;
+    }
+
+    _createClass(EditEvent, [{
+        key: 'sendEdit',
+        value: function sendEdit() {
+            var _this2 = this;
+
+            // let user_obj = JSON.parse(localStorage.User)
+            _axios2.default.put('/edit_event/' + this.state.event_id, {
+                title: this.state.title,
+                desc: this.state.desc,
+                category: this.state.category,
+                location: {
+                    city: this.state.location.city,
+                    street: this.state.location.street,
+                    num: this.state.location.num
+                },
+                pic: this.state.pic,
+                participants_amount: this.state.participants_amount,
+                date: this.state.date
+            }).then(function (res) {
+
+                window.location.replace('http://localhost:3000/event-page/' + _this2.state.event_id);
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _this3 = this;
+
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    'h2',
+                    null,
+                    'Add your event!'
+                ),
+                _react2.default.createElement(
+                    'form',
+                    { action: '#', id: 'getAddEventForm', onSubmit: this.sendEdit },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'form-group' },
+                        _react2.default.createElement(
+                            'label',
+                            { htmlFor: 'Title' },
+                            'Title :'
+                        ),
+                        _react2.default.createElement('input', { type: 'text', required: 'true', className: 'form-control', id: 'title', placeholder: 'Enter Event Title', value: this.state.title, onChange: function onChange(event) {
+                                return _this3.setState({ title: event.target.value });
+                            } })
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'form-group' },
+                        _react2.default.createElement(
+                            'label',
+                            { htmlFor: 'Category' },
+                            'Category :'
+                        ),
+                        _react2.default.createElement('input', { type: 'text', required: 'true', className: 'form-control', id: 'category', placeholder: 'Enter Event category', value: this.state.category, onChange: function onChange(event) {
+                                return _this3.setState({ category: event.target.value });
+                            } })
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'form-group' },
+                        _react2.default.createElement(
+                            'label',
+                            { htmlFor: 'desc' },
+                            'Enter description of the event:'
+                        ),
+                        _react2.default.createElement('input', { type: 'text', required: 'true', className: 'form-control', id: 'desc', placeholder: 'Enter description', value: this.state.desc, onChange: function onChange(event) {
+                                return _this3.setState({ desc: event.target.value });
+                            } })
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'form-group' },
+                        _react2.default.createElement(
+                            'label',
+                            { htmlFor: 'pic' },
+                            'Enter picture url for the event:'
+                        ),
+                        _react2.default.createElement('input', { type: 'text', required: 'true', className: 'form-control', id: 'pic', placeholder: 'Enter picture url', value: this.state.pic, onChange: function onChange(event) {
+                                return _this3.setState({ pic: event.target.value });
+                            } })
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'form-group' },
+                        _react2.default.createElement(
+                            'label',
+                            { htmlFor: 'participants_amount' },
+                            'Enter how many people can sign in for the event:'
+                        ),
+                        _react2.default.createElement('input', { type: 'number', required: 'true', className: 'form-control', id: 'participants_amount', placeholder: 'Enter participants_amount', value: this.state.participants_amount, onChange: function onChange(event) {
+                                return _this3.setState({ participants_amount: event.target.value });
+                            } })
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'form-group' },
+                        _react2.default.createElement(
+                            'label',
+                            { htmlFor: 'date' },
+                            'Enter the date for the event:'
+                        ),
+                        _react2.default.createElement('input', { type: 'text', required: 'true', className: 'form-control', id: 'date', placeholder: 'Enter date', value: this.state.date, onChange: function onChange(event) {
+                                return _this3.setState({ date: event.target.value });
+                            } })
+                    ),
+                    _react2.default.createElement(
+                        'h2',
+                        null,
+                        'Adress'
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'form-group' },
+                        _react2.default.createElement(
+                            'label',
+                            { htmlFor: 'city' },
+                            'City:'
+                        ),
+                        _react2.default.createElement('input', { type: 'text', required: 'true', className: 'form-control', id: 'city', placeholder: 'Enter The City', value: this.state.location.city, onChange: function onChange(event) {
+                                var location = Object.assign({}, _this3.state.location, { city: event.target.value });_this3.setState({ location: location });
+                            } })
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'form-group' },
+                        _react2.default.createElement(
+                            'label',
+                            { htmlFor: 'street' },
+                            'Street:'
+                        ),
+                        _react2.default.createElement('input', { type: 'text', required: 'true', className: 'form-control', id: 'street', placeholder: 'Enter The Street', value: this.state.location.street, onChange: function onChange(event) {
+                                var location = Object.assign({}, _this3.state.location, { street: event.target.value });_this3.setState({ location: location });
+                            } })
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'form-group' },
+                        _react2.default.createElement(
+                            'label',
+                            { htmlFor: 'numHouse' },
+                            'Number Of The House:'
+                        ),
+                        _react2.default.createElement('input', { type: 'number', required: 'true', className: 'form-control', id: 'numHouse', placeholder: 'Enter The Number Of The House', value: this.state.location.num, onChange: function onChange(event) {
+                                var location = Object.assign({}, _this3.state.location, { num: event.target.value });_this3.setState({ location: location });
+                            } })
+                    ),
+                    _react2.default.createElement(
+                        'button',
+                        { type: 'submit', required: 'true', className: 'btn btn-default' },
+                        'Submit'
+                    )
+                )
+            );
+        }
+    }]);
+
+    return EditEvent;
+}(_react2.default.Component);
+
+exports.default = EditEvent;
+
+/***/ }),
+/* 260 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
@@ -28538,7 +28782,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(16);
 
-var _axios = __webpack_require__(22);
+var _axios = __webpack_require__(19);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -28596,7 +28840,7 @@ var addEvent = function (_React$Component) {
         date: this.state.date
       }).then(function (res) {
         var arrEvent = res.data;
-        console.log(res.data);
+        // console.log(res.data);
         window.location.replace("http://localhost:3000/");
       });
     }
@@ -28745,7 +28989,7 @@ var addEvent = function (_React$Component) {
 exports.default = addEvent;
 
 /***/ }),
-/* 260 */
+/* 261 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28765,7 +29009,7 @@ var _Events = __webpack_require__(105);
 
 var _Events2 = _interopRequireDefault(_Events);
 
-var _axios = __webpack_require__(22);
+var _axios = __webpack_require__(19);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -28841,7 +29085,7 @@ var App = function (_React$Component) {
 exports.default = App;
 
 /***/ }),
-/* 261 */
+/* 262 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28859,7 +29103,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(16);
 
-var _axios = __webpack_require__(22);
+var _axios = __webpack_require__(19);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -28958,7 +29202,7 @@ var App = function (_React$Component) {
 exports.default = App;
 
 /***/ }),
-/* 262 */
+/* 263 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

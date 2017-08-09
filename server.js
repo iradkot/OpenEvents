@@ -96,19 +96,18 @@ app.post('/leaveEvent/:event_id/:user_id', function(req, res) {
     });
   })
 })
-
-/// update Event with given obj like so :{title: title, name: name, etc..}
-// app.put('/update_event/:event_id', ensureAuthenticated, function (req, res, next) {
-//   var updated_obj = req.body;
-//   console.log(updated_obj);
-//   Beer.findByIdAndUpdate(req.params.event_id, { $set: updated_obj }, { new: true }, function (err, event) {
-//     if (err) {
-//       return next(err);
-//     } else {
-//       res.send(event);
-//     }
-//   });
-// });
+// // Edit Event with given obj like so :{title: title, name: name, etc..}
+app.put('/edit_event/:event_id', function (req, res, next) {
+  var updated_obj = req.body;
+  console.log(updated_obj);
+  Event.findByIdAndUpdate(req.params.event_id, { $set: updated_obj }, { new: true }, function (err, event) {
+    if (err) {
+      return next(err);
+    } else {
+      res.send(event);
+    }
+  });
+});
 
 
  
@@ -147,26 +146,24 @@ app.get('/user', function (req, res) {
       }
     });
 })
-// create the user
-app.post('/create_user', function(req, res,next){
-  var newUser = new User({
-    first_name: req.body.first_name,
-    last_name: req.body.last_name,
-    age: req.body.age,
-    aboutme: req.body.aboutme,
-    location:{
-      city: req.body.city,
-      street: req.body.street,
-      num: req.body.num
-    },
-    email:  req.body.email ,
-    password:  req.body.password 
-  })
-  console.log(newUser);
-  newUser.save(handler(res,next));
-  
-  
-})
+// // create the user
+// app.post('/create_user', function(req, res,next){
+//   var newUser = new User({
+//     first_name: req.body.first_name,
+//     last_name: req.body.last_name,
+//     age: req.body.age,
+//     aboutme: req.body.aboutme,
+//     location:{
+//       city: req.body.city,
+//       street: req.body.street,
+//       num: req.body.num
+//     },
+//     email:  req.body.email ,
+//     password:  req.body.password 
+//   })
+//   console.log(newUser);
+//   newUser.save(handler(res,next));
+// })
 
 // create the event
 app.post('/create_event/:id', function(req, res,next){
@@ -175,6 +172,7 @@ app.post('/create_event/:id', function(req, res,next){
     desc: req.body.desc,
     category: req.body.category,
     pic: req.body.pic,
+    location: req.body.location,
     participants_amount: req.body.participants_amount,
     participants: [],
     date: req.body.date,

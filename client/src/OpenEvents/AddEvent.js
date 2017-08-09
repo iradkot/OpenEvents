@@ -40,7 +40,7 @@ class addEvent extends React.Component {
     })
       .then(res => {
         const arrEvent = res.data;
-        console.log(res.data);
+        // console.log(res.data);
         window.location.replace("http://localhost:3000/");
       });
   }
