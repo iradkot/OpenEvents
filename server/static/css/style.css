@@ -5,7 +5,6 @@
 .noShow {
     display: none !important;
 }
-
 /*SCTICKY HEADER*/
 
 /* Sticky Header Style */
@@ -142,7 +141,9 @@ a {
     text-decoration: none !important;
     color: #808080 !important;
 }
-
+li{
+  list-style: none;
+}
 /*BOOTSTRAP */
 /*Header sticky menu*/
 
@@ -208,7 +209,11 @@ img.prileImg {
     border-radius: 2px;
 }
 /*All Events PAge*/
+div#myNavbar {
+    width: 101.8%;
+}
 .event {
+      border-radius: 5px;
     border: 0.5px solid grey;
     height: 610px;
     margin-bottom: 6px;
@@ -261,13 +266,16 @@ button.btnJoin.facebook {
     color: #625D72;
 }
 
-<<<<<<< HEAD
 nav.navbar.sti {
     box-shadow: 0 1px 5px -2px grey;
 }
-=======
-.guests {
-      width: 100px;
-    border-radius: 50%;
+
+/*SEARCH*/
+
+input.searchTerm {
+    width: 38.2%;
+    height: 32px;
+    margin-right: 18.5%;
+    border-radius: 4px;
+    border: 1px solid #cbcaca;
 }
->>>>>>> 9a088ddc26203e420807f92ab5b7d0b8b82077d8

@@ -34,15 +34,11 @@ class App extends React.Component {
         )
     } else {
       return <div>
-      <Link to="/addEvent"><h5 className="profilePointer"><i className="fa fa-address-card-o" href="#" aria-hidden="true"></i>{' '}Crate Evnent</h5></Link>
-      <a className="btn btn-large btn-block btn-default" href="#" role="button">events created</a>
-      <div> 
-        events created:
-      </div>
-      <a className="btn btn-large btn-block btn-default" href="#" role="button">events joined</a>
-      <div> 
-        events joined:
-      </div>
+        
+      <li className="profilePointer"><a  href="/addEven" role="button"><i className="fa fa-address-card-o" href="#" aria-hidden="true"></i>{' '}Crate Evnent</a></li>
+      <li className="profilePointer">{' '}<a  href="#" role="button"><i className="fa fa-check-circle-o" aria-hidden="true"></i>{' '}Events Created</a></li>
+      <li className="profilePointer"><a  href="#" role="button"><i className="fa fa-child" aria-hidden="true"></i>{' '}Events Joined</a></li>
+      
       <h3 className="noEvTit">You have no events</h3>
       </div>
     }

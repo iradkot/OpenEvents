@@ -12297,10 +12297,9 @@ var Events = function (_React$Component) {
                         event.location.num,
                         ' ',
                         '    ',
-                        ' ',
                         _react2.default.createElement(
                             'a',
-                            { href: '#' },
+                            { target: '_blank', href: 'https://www.google.co.il/maps/place/' + event.location.street + ',+' + event.location.city },
                             ' Get Direction'
                         )
                     ),
@@ -24673,6 +24672,7 @@ var App = function (_React$Component) {
                   )
                 )
               ),
+              _react2.default.createElement('input', { className: 'searchTerm', placeholder: 'Enter your search term ...' }),
               _react2.default.createElement(
                 'ul',
                 { className: 'nav navbar-nav navbar-right' },
@@ -29005,35 +29005,38 @@ var App = function (_React$Component) {
           'div',
           null,
           _react2.default.createElement(
-            _reactRouterDom.Link,
-            { to: '/addEvent' },
+            'li',
+            { className: 'profilePointer' },
             _react2.default.createElement(
-              'h5',
-              { className: 'profilePointer' },
+              'a',
+              { href: '/addEven', role: 'button' },
               _react2.default.createElement('i', { className: 'fa fa-address-card-o', href: '#', 'aria-hidden': 'true' }),
               ' ',
               'Crate Evnent'
             )
           ),
           _react2.default.createElement(
-            'a',
-            { className: 'btn btn-large btn-block btn-default', href: '#', role: 'button' },
-            'events created'
+            'li',
+            { className: 'profilePointer' },
+            ' ',
+            _react2.default.createElement(
+              'a',
+              { href: '#', role: 'button' },
+              _react2.default.createElement('i', { className: 'fa fa-check-circle-o', 'aria-hidden': 'true' }),
+              ' ',
+              'Events Created'
+            )
           ),
           _react2.default.createElement(
-            'div',
-            null,
-            'events created:'
-          ),
-          _react2.default.createElement(
-            'a',
-            { className: 'btn btn-large btn-block btn-default', href: '#', role: 'button' },
-            'events joined'
-          ),
-          _react2.default.createElement(
-            'div',
-            null,
-            'events joined:'
+            'li',
+            { className: 'profilePointer' },
+            _react2.default.createElement(
+              'a',
+              { href: '#', role: 'button' },
+              _react2.default.createElement('i', { className: 'fa fa-child', 'aria-hidden': 'true' }),
+              ' ',
+              'Events Joined'
+            )
           ),
           _react2.default.createElement(
             'h3',

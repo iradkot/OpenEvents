@@ -39,7 +39,7 @@ class App extends React.Component {
 
   render() {
     let class_logout = localStorage.User ? "log logAnim" : "noShow";
-    let class_login = localStorage.User ? "noShow" :  "log logAnim";
+    let class_login = localStorage.User ? "noShow" : "log logAnim";
     return (
       <header>
         <nav className="navbar  sti">
@@ -50,6 +50,10 @@ class App extends React.Component {
                 <li><Link to="/about">about</Link></li>
                 {/*<li><Link to={'/profile/' + this.state.user.name}>Profile</Link></li>*/}
               </ul>
+              
+               
+                  <input className="searchTerm" placeholder="Enter your search term ..." />
+               
               <ul className="nav navbar-nav navbar-right">
                 <li><a target="_self" href="/auth/facebook" className={class_login}><span className="glyphicon glyphicon-log-in"></span> Login</a></li>
                 <li><a target="_self" href="#" onClick={this.props.logout} className={class_logout}><span className="glyphicon glyphicon-log-out"></span> Logout</a></li>
@@ -57,7 +61,7 @@ class App extends React.Component {
             </div>
           </div>
         </nav>
-      </header>
+      </header >
     );
   }
 }

@@ -21,7 +21,8 @@ class Events extends React.Component {
                 <p>{event.desc} </p>
                 <img className="prileImg eventProPic"  src={event.createdby.myPic} />{'    '}<span className="profileName">{event.createdby.name} Create the Event</span>
                 <p><i className="fa fa-clock-o" aria-hidden="true"></i> - {event.date.substring(0,10)} </p>
-                <p><img width="18" className="" src="images/location.png"/> - {event.location.city},{event.location.street}-{event.location.num} {'    '} <a href="#"> Get Direction</a></p>
+                <p><img width="18" className="" src="images/location.png"/> - {event.location.city},{event.location.street}-{event.location.num} {'    '}
+                 <a target="_blank" href={'https://www.google.co.il/maps/place/'+event.location.street+',+'+ event.location.city }> Get Direction</a></p>
                 <p><button className="btnJoin"> join</button> <button className="btnJoin facebook"> SHARE ON FACEBOOK</button></p>
             
         </div>);
