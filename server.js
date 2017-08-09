@@ -45,6 +45,14 @@ var handler = function (res,next) {
         res.send(data);
     }
 }
+  /// testing population:
+  app.get('/populate_profile', function(req,res,next){
+    User.findById('5989990336440e01d41a5bda').populate('myevents').exec(function (err, user) {
+      if (err) throw err;
+      res.json(user);
+      // prints "The creator is Aaron"
+    });
+  });
 
 app.get('/events', function(req,res,next){
     Event.find(handler(res,next));
@@ -116,7 +124,6 @@ app.delete('/deleteEvent/:eventId', function (req, res) {
 
 // get user profile 
 app.get('/profile', function(req,res,next){
-  console.log(req.query._id);
   User.findById(req.query._id,handler(res,next) )
 })
 // user authentication
@@ -163,24 +170,23 @@ app.get('/user', function (req, res) {
 // })
 
 // create the event
-app.post('/create_event/:id', function(req, res,next){
+app.post('/create_event', function(req, res,next){
   var newEvent = new Event({
     title: req.body.title,
     desc: req.body.desc,
     category: req.body.category,
     pic: req.body.pic,
-    location: req.body.location,
     participants_amount: req.body.participants_amount,
     participants: [],
+    location:req.body.location,
     date: req.body.date,
-    createdby: req.params.id
+    createdby: req.body.createdby
   })
 
-  newEvent.save(function(err,data){
+ newEvent.save(function(err,data){
    User.findOneAndUpdate({_id: data.createdby }, {$push : {myevents:data.id}}, handler(res,next))
   });
 })
-
 // // update user push event into myevents
 // app.put('/user', function (req, res) {
 //   res.send('Got a PUT request at /user')

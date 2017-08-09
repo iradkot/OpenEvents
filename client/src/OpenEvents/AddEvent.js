@@ -26,8 +26,6 @@ class addEvent extends React.Component {
   // send the vent data to the server
   handleSubmit(event) {
     event.preventDefault();
-    console.log("hi");
-    console.log(this.state);
     axios.post(`/create_event`, {
       title: this.state.title,
       desc: this.state.desc,
@@ -40,8 +38,9 @@ class addEvent extends React.Component {
           num:  this.state.location.num ,
         },
         participants_amount: this.state.participants_amount,
-        createdby: this.state.user
+        createdby: this.props.user
     }).then(function(res){
+      window.location.replace("http://localhost:3000/");
 // redirect to the event page
     }).catch(function(err,res){
 //if status code 401 - redirect login, else show error. 
@@ -71,13 +70,13 @@ handleChange(event) {
   componentWillMount() {
     this.today();
     // get user info fro DB
-    axios.get(`/profile`, {
-     params:{ _id: this.state.user.id
-    }})
-      .then(res => {
-        var User = res.data;
-        this.setState({ user: User });
-      });
+    // axios.get(`/profile`, {
+    //  params:{ _id: this.state.user.id
+    // }})
+    //   .then(res => {
+    //     var User = res.data;
+    //     this.setState({ user: User });
+    //   });
   }
  
   render() {

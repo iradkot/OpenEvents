@@ -12328,6 +12328,10 @@ var _Routes = __webpack_require__(253);
 
 var _Routes2 = _interopRequireDefault(_Routes);
 
+var _axios = __webpack_require__(19);
+
+var _axios2 = _interopRequireDefault(_axios);
+
 var _reactRouterDom = __webpack_require__(16);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -12359,11 +12363,12 @@ var App = function (_React$Component) {
 
 
   _createClass(App, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
+    key: 'componentWillMount',
+    value: function componentWillMount() {
       if (localStorage.User) {
         var user = JSON.parse(localStorage.User);
-        this.setState({ user: user });
+        this.updateUser(user);
+        console.log(user.name);
       }
     }
     //  check if thwre is a user in the localstorage  - put in the state
@@ -12378,7 +12383,18 @@ var App = function (_React$Component) {
   }, {
     key: 'updateUser',
     value: function updateUser(user) {
+      var _this2 = this;
+
       this.setState({ user: user });
+      // getting the user from DB
+      _axios2.default.get('/profile', {
+        params: {
+          _id: user.id
+        }
+      }).then(function (res) {
+        var User = res.data;
+        _this2.setState({ user: User });
+      });
     }
   }, {
     key: 'render',
@@ -28511,10 +28527,12 @@ var EventPage = function (_React$Component) {
                     //checks if user joined allready to the event
                     var user_obj = JSON.parse(localStorage.User);
                     var user_id = user_obj.id;
+                    console.log(user_id);
+                    console.log(that.state.eventObj.createdby._id);
                     var eventFull;
                     if (that.state.eventObj.participants.indexOf(user_id) > -1) {
                         that.setState({ participate: true });
-                    } else if (that.state.eventObj.createdby === user_id) {
+                    } else if (that.state.eventObj.createdby._id === user_id) {
                         that.setState({ eventOwner: true });
                     }
                 }
@@ -28822,8 +28840,6 @@ var addEvent = function (_React$Component) {
     key: 'handleSubmit',
     value: function handleSubmit(event) {
       event.preventDefault();
-      console.log("hi");
-      console.log(this.state);
       _axios2.default.post('/create_event', {
         title: this.state.title,
         desc: this.state.desc,
@@ -28836,8 +28852,9 @@ var addEvent = function (_React$Component) {
           num: this.state.location.num
         },
         participants_amount: this.state.participants_amount,
-        createdby: this.state.user
+        createdby: this.props.user
       }).then(function (res) {
+        window.location.replace("http://localhost:3000/");
         // redirect to the event page
       }).catch(function (err, res) {
         //if status code 401 - redirect login, else show error. 
@@ -28874,21 +28891,20 @@ var addEvent = function (_React$Component) {
   }, {
     key: 'componentWillMount',
     value: function componentWillMount() {
-      var _this2 = this;
-
       this.today();
       // get user info fro DB
-      _axios2.default.get('/profile', {
-        params: { _id: this.state.user.id
-        } }).then(function (res) {
-        var User = res.data;
-        _this2.setState({ user: User });
-      });
+      // axios.get(`/profile`, {
+      //  params:{ _id: this.state.user.id
+      // }})
+      //   .then(res => {
+      //     var User = res.data;
+      //     this.setState({ user: User });
+      //   });
     }
   }, {
     key: 'render',
     value: function render() {
-      var _this3 = this;
+      var _this2 = this;
 
       return _react2.default.createElement(
         'div',
@@ -28910,7 +28926,7 @@ var addEvent = function (_React$Component) {
               'Title :'
             ),
             _react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'title', placeholder: 'Enter Event Title', value: this.state.title, onChange: function onChange(event) {
-                return _this3.setState({ title: event.target.value });
+                return _this2.setState({ title: event.target.value });
               } })
           ),
           _react2.default.createElement(
@@ -28922,7 +28938,7 @@ var addEvent = function (_React$Component) {
               'Enter description of the event:'
             ),
             _react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'desc', placeholder: 'Enter description', value: this.state.desc, onChange: function onChange(event) {
-                return _this3.setState({ desc: event.target.value });
+                return _this2.setState({ desc: event.target.value });
               } })
           ),
           _react2.default.createElement(
@@ -28934,7 +28950,7 @@ var addEvent = function (_React$Component) {
               'Enter picture url for the event:'
             ),
             _react2.default.createElement('input', { type: 'pic', className: 'form-control', id: 'pic', placeholder: 'Enter picture url', value: this.state.pic, onChange: function onChange(event) {
-                return _this3.setState({ pic: event.target.value });
+                return _this2.setState({ pic: event.target.value });
               } })
           ),
           _react2.default.createElement(
@@ -28946,7 +28962,7 @@ var addEvent = function (_React$Component) {
               'Enter picture url for the event:'
             ),
             _react2.default.createElement('input', { type: 'date', className: 'form-control', value: this.state.date, onChange: function onChange(event) {
-                return _this3.setState({ date: event.target.value });
+                return _this2.setState({ date: event.target.value });
               } })
           ),
           _react2.default.createElement(
@@ -28958,7 +28974,7 @@ var addEvent = function (_React$Component) {
               'Enter how many people can sign in for the event:'
             ),
             _react2.default.createElement('input', { type: 'number', required: 'true', className: 'form-control', id: 'participants_amount', placeholder: 'Enter participants_amount', value: this.state.participants_amount, onChange: function onChange(event) {
-                return _this3.setState({ participants_amount: event.target.value });
+                return _this2.setState({ participants_amount: event.target.value });
               } })
           ),
           _react2.default.createElement(
@@ -29008,7 +29024,7 @@ var addEvent = function (_React$Component) {
               'City:'
             ),
             _react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'city', placeholder: 'Enter The City', value: this.state.location.city, onChange: function onChange(event) {
-                var location = Object.assign({}, _this3.state.location, { city: event.target.value });_this3.setState({ location: location });
+                var location = Object.assign({}, _this2.state.location, { city: event.target.value });_this2.setState({ location: location });
               } })
           ),
           _react2.default.createElement(
@@ -29020,7 +29036,7 @@ var addEvent = function (_React$Component) {
               'Street:'
             ),
             _react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'street', placeholder: 'Enter The Street', value: this.state.location.street, onChange: function onChange(event) {
-                var location = Object.assign({}, _this3.state.location, { street: event.target.value });_this3.setState({ location: location });
+                var location = Object.assign({}, _this2.state.location, { street: event.target.value });_this2.setState({ location: location });
               } })
           ),
           _react2.default.createElement(
@@ -29032,7 +29048,7 @@ var addEvent = function (_React$Component) {
               'Number Of The House:'
             ),
             _react2.default.createElement('input', { type: 'number', className: 'form-control', id: 'numHouse', placeholder: 'Enter The Number Of The House', value: this.state.location.num, onChange: function onChange(event) {
-                var location = Object.assign({}, _this3.state.location, { num: event.target.value });_this3.setState({ location: location });
+                var location = Object.assign({}, _this2.state.location, { num: event.target.value });_this2.setState({ location: location });
               } })
           ),
           _react2.default.createElement(
@@ -29079,8 +29095,6 @@ var _reactRouterDom = __webpack_require__(16);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -29097,10 +29111,13 @@ var App = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
+    _this.events_joined = _this.events_joined.bind(_this);
+    _this.events_created = _this.events_created.bind(_this);
     _this.showUserEvents = _this.showUserEvents.bind(_this);
     _this.state = {
       events: [],
-      user: _this.props.user
+      user: _this.props.user,
+      user_events: []
     };
     return _this;
   }
@@ -29125,6 +29142,16 @@ var App = function (_React$Component) {
         var arrEvent = res.data;
         _this2.setState({ events: arrEvent });
       });
+    }
+  }, {
+    key: 'events_joined',
+    value: function events_joined() {
+      this.setState({ user_events: [{ title: '1' }, { title: '2' }] });
+    }
+  }, {
+    key: 'events_created',
+    value: function events_created() {
+      this.setState({ user_events: [{ title: '3' }, { title: '4' }] });
     }
   }, {
     key: 'showUserEvents',
@@ -29157,9 +29184,12 @@ var App = function (_React$Component) {
             )
           ),
           _react2.default.createElement(
-            'h3',
-            { className: 'noEvTit' },
-            'You have no events'
+            'div',
+            { onChange: this.setGender.bind(this) },
+            _react2.default.createElement('input', { type: 'radio', value: 'MALE', name: 'gender' }),
+            ' Male',
+            _react2.default.createElement('input', { type: 'radio', value: 'FEMALE', name: 'gender' }),
+            ' Female'
           )
         );
       }
@@ -29209,24 +29239,6 @@ var App = function (_React$Component) {
               'div',
               { className: 'col-md-9' },
               _react2.default.createElement(_Events2.default, { events: this.state.events })
-            )
-          )
-        ),
-        _react2.default.createElement(
-          'h1',
-          null,
-          'Our events:',
-          _react2.default.createElement(
-            'div',
-            null,
-            _react2.default.createElement(
-              'button',
-              _defineProperty({ type: 'button', className: 'btn btn-default' }, 'className', className),
-              _react2.default.createElement(
-                _reactRouterDom.Link,
-                { to: '/addEvent' },
-                'Add event'
-              )
             )
           )
         )
@@ -29490,8 +29502,6 @@ var addEvent = function (_React$Component) {
     key: 'handleSubmit',
     value: function handleSubmit(event) {
       event.preventDefault();
-      console.log("hi");
-      console.log(this.state);
       _axios2.default.post('/create_event', {
         title: this.state.title,
         desc: this.state.desc,
@@ -29504,8 +29514,9 @@ var addEvent = function (_React$Component) {
           num: this.state.location.num
         },
         participants_amount: this.state.participants_amount,
-        createdby: this.state.user
+        createdby: this.props.user
       }).then(function (res) {
+        window.location.replace("http://localhost:3000/");
         // redirect to the event page
       }).catch(function (err, res) {
         //if status code 401 - redirect login, else show error. 
@@ -29542,21 +29553,20 @@ var addEvent = function (_React$Component) {
   }, {
     key: 'componentWillMount',
     value: function componentWillMount() {
-      var _this2 = this;
-
       this.today();
       // get user info fro DB
-      _axios2.default.get('/profile', {
-        params: { _id: this.state.user.id
-        } }).then(function (res) {
-        var User = res.data;
-        _this2.setState({ user: User });
-      });
+      // axios.get(`/profile`, {
+      //  params:{ _id: this.state.user.id
+      // }})
+      //   .then(res => {
+      //     var User = res.data;
+      //     this.setState({ user: User });
+      //   });
     }
   }, {
     key: 'render',
     value: function render() {
-      var _this3 = this;
+      var _this2 = this;
 
       return _react2.default.createElement(
         'div',
@@ -29578,7 +29588,7 @@ var addEvent = function (_React$Component) {
               'Title :'
             ),
             _react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'title', placeholder: 'Enter Event Title', value: this.state.title, onChange: function onChange(event) {
-                return _this3.setState({ title: event.target.value });
+                return _this2.setState({ title: event.target.value });
               } })
           ),
           _react2.default.createElement(
@@ -29590,7 +29600,7 @@ var addEvent = function (_React$Component) {
               'Enter description of the event:'
             ),
             _react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'desc', placeholder: 'Enter description', value: this.state.desc, onChange: function onChange(event) {
-                return _this3.setState({ desc: event.target.value });
+                return _this2.setState({ desc: event.target.value });
               } })
           ),
           _react2.default.createElement(
@@ -29602,7 +29612,7 @@ var addEvent = function (_React$Component) {
               'Enter picture url for the event:'
             ),
             _react2.default.createElement('input', { type: 'pic', className: 'form-control', id: 'pic', placeholder: 'Enter picture url', value: this.state.pic, onChange: function onChange(event) {
-                return _this3.setState({ pic: event.target.value });
+                return _this2.setState({ pic: event.target.value });
               } })
           ),
           _react2.default.createElement(
@@ -29614,7 +29624,7 @@ var addEvent = function (_React$Component) {
               'Enter picture url for the event:'
             ),
             _react2.default.createElement('input', { type: 'date', className: 'form-control', value: this.state.date, onChange: function onChange(event) {
-                return _this3.setState({ date: event.target.value });
+                return _this2.setState({ date: event.target.value });
               } })
           ),
           _react2.default.createElement(
@@ -29626,7 +29636,7 @@ var addEvent = function (_React$Component) {
               'Enter how many people can sign in for the event:'
             ),
             _react2.default.createElement('input', { type: 'number', required: 'true', className: 'form-control', id: 'participants_amount', placeholder: 'Enter participants_amount', value: this.state.participants_amount, onChange: function onChange(event) {
-                return _this3.setState({ participants_amount: event.target.value });
+                return _this2.setState({ participants_amount: event.target.value });
               } })
           ),
           _react2.default.createElement(
@@ -29676,7 +29686,7 @@ var addEvent = function (_React$Component) {
               'City:'
             ),
             _react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'city', placeholder: 'Enter The City', value: this.state.location.city, onChange: function onChange(event) {
-                var location = Object.assign({}, _this3.state.location, { city: event.target.value });_this3.setState({ location: location });
+                var location = Object.assign({}, _this2.state.location, { city: event.target.value });_this2.setState({ location: location });
               } })
           ),
           _react2.default.createElement(
@@ -29688,7 +29698,7 @@ var addEvent = function (_React$Component) {
               'Street:'
             ),
             _react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'street', placeholder: 'Enter The Street', value: this.state.location.street, onChange: function onChange(event) {
-                var location = Object.assign({}, _this3.state.location, { street: event.target.value });_this3.setState({ location: location });
+                var location = Object.assign({}, _this2.state.location, { street: event.target.value });_this2.setState({ location: location });
               } })
           ),
           _react2.default.createElement(
@@ -29700,7 +29710,7 @@ var addEvent = function (_React$Component) {
               'Number Of The House:'
             ),
             _react2.default.createElement('input', { type: 'number', className: 'form-control', id: 'numHouse', placeholder: 'Enter The Number Of The House', value: this.state.location.num, onChange: function onChange(event) {
-                var location = Object.assign({}, _this3.state.location, { num: event.target.value });_this3.setState({ location: location });
+                var location = Object.assign({}, _this2.state.location, { num: event.target.value });_this2.setState({ location: location });
               } })
           ),
           _react2.default.createElement(

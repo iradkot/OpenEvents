@@ -137,11 +137,13 @@ class EventPage extends React.Component {
                     //checks if user joined allready to the event
                     let user_obj = JSON.parse(localStorage.User);
                     let user_id = user_obj.id;
+                    console.log(user_id);
+                    console.log(that.state.eventObj.createdby._id);
                     var eventFull;
                     if (that.state.eventObj.participants.indexOf(user_id) > -1) {
                         that.setState({ participate: true });
                     }
-                    else if (that.state.eventObj.createdby === user_id) {
+                    else if (that.state.eventObj.createdby._id === user_id) {
                         that.setState({ eventOwner: true });
                     }
                 }

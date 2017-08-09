@@ -9,10 +9,13 @@ import { Link } from 'react-router-dom';
 class App extends React.Component {
   constructor(props) {
     super(props)
+    this.events_joined = this.events_joined.bind(this);
+    this.events_created = this.events_created.bind(this);
     this.showUserEvents = this.showUserEvents.bind(this);
     this.state = {
       events: [],
-      user: this.props.user
+      user: this.props.user,
+      user_events: []
     }
   }
 
@@ -36,48 +39,55 @@ class App extends React.Component {
       });
 
   }
+  events_joined() {
+    this.setState({user_events: [{title: '1'}, {title: '2'}]})
+  }
+  events_created() {
+    this.setState({user_events: [{title: '3'}, {title: '4'}]})
+  }
 
-  showUserEvents(){
-    if(this.state.user.events_signed > 0) {
-      return this.this.state.user.events_signed.map((event,index) => <ul>
+  showUserEvents() {
+    if (this.state.user.events_signed > 0) {
+      return this.this.state.user.events_signed.map((event, index) => <ul>
         <li>{event}</li>
-        </ul>
-        )
+      </ul>
+      )
     } else {
       return <div>
-      <Link to="/addEvent"><h5 className="profilePointer"><i className="fa fa-address-card-o" href="#" aria-hidden="true"></i>{' '}Crate Evnent</h5></Link>
-      <h3 className="noEvTit">You have no events</h3>
+        <Link to="/addEvent"><h5 className="profilePointer"><i className="fa fa-address-card-o" href="#" aria-hidden="true"></i>{' '}Crate Evnent</h5></Link>
+        <div onChange={this.setGender.bind(this)}>
+          <input type="radio" value="MALE" name="gender"/> Male
+          <input type="radio" value="FEMALE" name="gender"/> Female
+        </div>
+            {/* <h3 className="noEvTit">You have no events</h3> */}
       </div>
-    }
+          }
   }
 
   render() {
     var className = this.state.user ? "userIn" : "noShow";
     return (
       <div>
-        <div className="container ">
-          <div className="row">
-            {/* the profile container*/}
-            <div className="col-md-3 profileContainer">
-              <div className="profileHolder">
-                <div  className="profilePointer">
-                  < a href="#"><img src={this.state.user.myPic} className="prileImg"/>
-                 {' '}<span className="profileName">{this.state.user.name}</span></a></div>
-                <div >{this.showUserEvents()}</div>
+            <div className="container ">
+              <div className="row">
+                {/* the profile container*/}
+                <div className="col-md-3 profileContainer">
+                  <div className="profileHolder">
+                    <div className="profilePointer">
+                      < a href="#"><img src={this.state.user.myPic} className="prileImg" />
+                        {' '}<span className="profileName">{this.state.user.name}</span></a></div>
+                    <div >{this.showUserEvents()}</div>
+                  </div>
+                </div>
+                <div className="col-md-9">
+                  <Events events={this.state.events} />
+                </div>
               </div>
             </div>
-            <div className="col-md-9">
-              <Events events={this.state.events} />
-            </div>
-          </div>
-        </div>
-        <h1>Our events:
-          <div ><button type="button" className="btn btn-default" className={className}><Link to="/addEvent">Add event</Link></button></div>
-        </h1>
 
-        {/* <Events events={this.state.events} /> */}
-      </div>
-    );
+            {/* <Events events={this.state.events} /> */}
+          </div>
+          );
   }
 }
 
