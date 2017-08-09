@@ -29008,8 +29008,8 @@ var App = function (_React$Component) {
             'li',
             { className: 'profilePointer' },
             _react2.default.createElement(
-              'a',
-              { href: '/addEven', role: 'button' },
+              _reactRouterDom.Link,
+              { to: '/addEvent' },
               _react2.default.createElement('i', { className: 'fa fa-address-card-o', href: '#', 'aria-hidden': 'true' }),
               ' ',
               'Crate Evnent'
