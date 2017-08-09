@@ -14,7 +14,6 @@ class App extends React.Component {
     if (localStorage.length > 0) {
       let user1 = JSON.parse(localStorage.User);
       this.setState({ user: user1 });
-      console.log(user1.name);
     }
 
   }
