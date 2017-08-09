@@ -12231,66 +12231,64 @@ var Events = function (_React$Component) {
 
         var _this = _possibleConstructorReturn(this, (Events.__proto__ || Object.getPrototypeOf(Events)).call(this, props));
 
-        _this.showEvent = _this.showEvent.bind(_this);
-        _this.state = {
-            redirect: false,
-            chosenEvent: 0
-        };
+        _this.state = {};
         return _this;
     }
 
-    _createClass(Events, [{
-        key: 'showEvent',
-        value: function showEvent(event) {
-            this.setState({ redirect: true, chosenEvent: event._id });
-        }
-        ///here we decide how to desplay the events:
+    ///here we decide how to desplay the events:
 
-    }, {
+
+    _createClass(Events, [{
         key: 'renderEvents',
         value: function renderEvents() {
-            var _this2 = this;
-
             // console.log(this.props);
             return this.props.events.map(function (event, index) {
                 return _react2.default.createElement(
                     'div',
-                    { className: 'col-md-4', key: index },
+                    { className: 'col-md-6 event', key: index },
                     _react2.default.createElement(
-                        'div',
-                        { className: 'row' },
+                        _reactRouterDom.Link,
+                        { to: '../event-page/' + event._id },
                         _react2.default.createElement('img', { className: 'img-responsive', src: event.pic }),
                         _react2.default.createElement(
                             'h3',
                             null,
                             event.title
                         ),
+                        _react2.default.createElement('img', { className: 'prileImg eventProPic', src: event.createdby.myPic }),
+                        '    ',
                         _react2.default.createElement(
-                            'button',
-                            { type: 'button', onClick: _this2.showEvent.bind(null, event) },
-                            'View Event'
+                            'span',
+                            { className: 'profileName' },
+                            event.createdby.name,
+                            ' Create the Event'
+                        ),
+                        _react2.default.createElement(
+                            'p',
+                            null,
+                            'Date - ',
+                            event.date,
+                            ' '
+                        ),
+                        _react2.default.createElement(
+                            'p',
+                            null,
+                            event.desc,
+                            ' '
                         )
-                    ),
-                    JSON.stringify(event)
+                    )
                 );
             });
         }
     }, {
         key: 'render',
         value: function render() {
-            if (this.state.redirect) {
-                return _react2.default.createElement(_reactRouterDom.Redirect, { to: '../event-page/' + this.state.chosenEvent });
-            } else {
-                return _react2.default.createElement(
-                    'div',
-                    { className: 'container' },
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'row' },
-                        this.renderEvents()
-                    )
-                );
-            }
+
+            return _react2.default.createElement(
+                'div',
+                { className: 'row' },
+                this.renderEvents()
+            );
         }
     }]);
 
@@ -12328,6 +12326,10 @@ var _Routes = __webpack_require__(253);
 
 var _Routes2 = _interopRequireDefault(_Routes);
 
+var _axios = __webpack_require__(22);
+
+var _axios2 = _interopRequireDefault(_axios);
+
 var _reactRouterDom = __webpack_require__(16);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -12359,11 +12361,11 @@ var App = function (_React$Component) {
 
 
   _createClass(App, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
+    key: 'componentWillMount',
+    value: function componentWillMount() {
       if (localStorage.User) {
         var user = JSON.parse(localStorage.User);
-        this.setState({ user: user });
+        this.updateUser(user);
         console.log(user.name);
       }
     }
@@ -12379,7 +12381,18 @@ var App = function (_React$Component) {
   }, {
     key: 'updateUser',
     value: function updateUser(user) {
+      var _this2 = this;
+
       this.setState({ user: user });
+      // getting the user from DB
+      _axios2.default.get('/profile', {
+        params: {
+          _id: user.id
+        }
+      }).then(function (res) {
+        var User = res.data;
+        _this2.setState({ user: User });
+      });
     }
   }, {
     key: 'render',
@@ -27901,6 +27914,10 @@ var _Athentication = __webpack_require__(262);
 
 var _Athentication2 = _interopRequireDefault(_Athentication);
 
+var _AddEvent = __webpack_require__(263);
+
+var _AddEvent2 = _interopRequireDefault(_AddEvent);
+
 var _reactRouterDom = __webpack_require__(16);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -27926,7 +27943,9 @@ var Routesss = function Routesss(props) {
                 render: function render() {
                     return _react2.default.createElement(_Profile2.default, { user: props.user });
                 } }),
-            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/addEvent', component: _addEvent2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/addEvent', render: function render() {
+                    return _react2.default.createElement(_AddEvent2.default, { user: props.user });
+                } }),
             _react2.default.createElement(_reactRouterDom.Route, { path: '/event-page/:eventid', component: _EventPage2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/register', component: _RegisterForm2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { path: '*', component: _2.default })
@@ -28322,6 +28341,10 @@ var _axios = __webpack_require__(22);
 
 var _axios2 = _interopRequireDefault(_axios);
 
+var _EditEvent = __webpack_require__(264);
+
+var _EditEvent2 = _interopRequireDefault(_EditEvent);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -28350,8 +28373,10 @@ var EventPage = function (_React$Component) {
         _this.joinEvent = _this.joinEvent.bind(_this);
         _this.deleteEvent = _this.deleteEvent.bind(_this);
         _this.leaveEvent = _this.leaveEvent.bind(_this);
+        _this.editEvent = _this.editEvent.bind(_this);
         _this.state = {
             eventObj: {},
+            editMode: false,
             eventFull: false,
             participate: false,
             eventOwner: false,
@@ -28363,8 +28388,12 @@ var EventPage = function (_React$Component) {
     _createClass(EventPage, [{
         key: 'componentWillMount',
         value: function componentWillMount() {
-            console.log(this.state.eventOwner);
             this.getEvent();
+        }
+    }, {
+        key: 'editEvent',
+        value: function editEvent() {
+            this.setState({ editMode: true });
         }
         // tester 
 
@@ -28433,38 +28462,53 @@ var EventPage = function (_React$Component) {
             var class_leave_btn = this.state.participate || this.state.loading && localStorage.length > 0 ? "btn btn-large btn-block btn-warning" : 'noShow';
             var class_delete_btn = this.state.eventOwner ? "btn btn-large btn-block btn-danger" : 'noShow';
             var class_loading = this.state.loading ? "" : "noShow";
-            return _react2.default.createElement(
-                'div',
-                { className: 'container' },
-                _react2.default.createElement(
+
+            if (this.state.editMode) {
+
+                return _react2.default.createElement(
                     'div',
-                    { className: 'row' },
-                    'And the event id is - ',
-                    this.props.match.params.eventid,
-                    ', and the object is - ',
-                    this.state.eventObj.title
-                ),
-                _react2.default.createElement(
-                    'h1',
-                    { className: class_loading },
-                    'Loading!'
-                ),
-                _react2.default.createElement(
-                    'button',
-                    { type: 'button', onClick: this.joinEvent, className: class_join_btn },
-                    'Join Event!'
-                ),
-                _react2.default.createElement(
-                    'button',
-                    { type: 'button', onClick: this.leaveEvent, className: class_leave_btn },
-                    'Leave Event.'
-                ),
-                _react2.default.createElement(
-                    'button',
-                    { type: 'button', onClick: this.deleteEvent, className: class_delete_btn },
-                    'Delete Event'
-                )
-            );
+                    null,
+                    _react2.default.createElement(_EditEvent2.default, { eventObj: this.state.eventObj })
+                );
+            } else {
+                return _react2.default.createElement(
+                    'div',
+                    { className: 'container' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'row' },
+                        'And the event id is - ',
+                        this.props.match.params.eventid,
+                        ', and the object is - ',
+                        this.state.eventObj.title
+                    ),
+                    _react2.default.createElement(
+                        'h1',
+                        { className: class_loading },
+                        'Loading!'
+                    ),
+                    _react2.default.createElement(
+                        'button',
+                        { type: 'button', onClick: this.joinEvent, className: class_join_btn },
+                        'Join Event!'
+                    ),
+                    _react2.default.createElement(
+                        'button',
+                        { type: 'button', onClick: this.leaveEvent, className: class_leave_btn },
+                        'Leave Event.'
+                    ),
+                    _react2.default.createElement(
+                        'button',
+                        { type: 'button', onClick: this.deleteEvent, className: class_delete_btn },
+                        'Delete Event'
+                    ),
+                    _react2.default.createElement(
+                        'button',
+                        { type: 'button', onClick: this.editEvent },
+                        'Edit event'
+                    )
+                );
+            }
         }
         /// get the event to the event page + checks the user connection to the event
 
@@ -28482,13 +28526,12 @@ var EventPage = function (_React$Component) {
                     //checks if user joined allready to the event
                     var user_obj = JSON.parse(localStorage.User);
                     var user_id = user_obj.id;
+                    console.log(user_id);
+                    console.log(that.state.eventObj.createdby._id);
                     var eventFull;
-                    console.log(that.state.eventOwner);
-                    console.log(that.state.participate);
-
                     if (that.state.eventObj.participants.indexOf(user_id) > -1) {
                         that.setState({ participate: true });
-                    } else if (that.state.eventObj.createdby === user_id) {
+                    } else if (that.state.eventObj.createdby._id === user_id) {
                         that.setState({ eventOwner: true });
                     }
                 }
@@ -28560,7 +28603,7 @@ var addEvent = function (_React$Component) {
       desc: "",
       pic: "",
       participants_amount: 10,
-      user: {},
+      user: _this.props.user,
       date: "",
       category: "shabat",
       location: {
@@ -28580,7 +28623,7 @@ var addEvent = function (_React$Component) {
       event.preventDefault();
       console.log("hi");
       console.log(this.state);
-      _axios2.default.post('/create_event/' + this.state.user._id, {
+      _axios2.default.post('/create_event', {
         title: this.state.title,
         desc: this.state.desc,
         pic: this.state.pic,
@@ -28591,7 +28634,8 @@ var addEvent = function (_React$Component) {
           street: this.state.location.street,
           num: this.state.location.num
         },
-        participants_amount: this.state.participants_amount
+        participants_amount: this.state.participants_amount,
+        createdby: this.props.user
       }).then(function (res) {
         // redirect to the event page
       }).catch(function (err, res) {
@@ -28630,12 +28674,21 @@ var addEvent = function (_React$Component) {
     key: 'componentWillMount',
     value: function componentWillMount() {
       this.today();
+      // get user info fro DB
+      // axios.get(`/profile`, {
+      //  params:{ _id: this.state.user.id
+      // }})
+      //   .then(res => {
+      //     var User = res.data;
+      //     this.setState({ user: User });
+      //   });
     }
   }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
 
+      console.log(this.props.user);
       return _react2.default.createElement(
         'div',
         { className: 'container' },
@@ -28825,8 +28878,6 @@ var _reactRouterDom = __webpack_require__(16);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -28845,8 +28896,7 @@ var App = function (_React$Component) {
 
     _this.showUserEvents = _this.showUserEvents.bind(_this);
     _this.state = {
-      events: [],
-      user: _this.props.user
+      events: []
     };
     console.log(_this.props.user);
     return _this;
@@ -28858,17 +28908,6 @@ var App = function (_React$Component) {
       var _this2 = this;
 
       console.log("allEvents user");
-      console.log(this.state.user);
-      this.setState({ user: this.props.user });
-      // getting the user from DB
-      _axios2.default.get('/profile', {
-        params: {
-          _id: this.state.user.id
-        }
-      }).then(function (res) {
-        var User = res.data;
-        _this2.setState({ user: User });
-      });
       // get events from DB
       _axios2.default.get('/events').then(function (res) {
         var arrEvent = res.data;
@@ -28878,8 +28917,8 @@ var App = function (_React$Component) {
   }, {
     key: 'showUserEvents',
     value: function showUserEvents() {
-      if (this.state.user.events_signed > 0) {
-        return this.this.state.user.events_signed.map(function (event, index) {
+      if (this.props.user.events_signed > 0) {
+        return this.props.user.events_signed.map(function (event, index) {
           return _react2.default.createElement(
             'ul',
             null,
@@ -28895,8 +28934,8 @@ var App = function (_React$Component) {
           'div',
           null,
           _react2.default.createElement(
-            'a',
-            { href: '#' },
+            _reactRouterDom.Link,
+            { to: '/addEvent' },
             _react2.default.createElement(
               'h5',
               { className: 'profilePointer' },
@@ -28916,7 +28955,7 @@ var App = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var className = this.state.user ? "userIn" : "noShow";
+      var className = this.props.user ? "userIn" : "noShow";
       return _react2.default.createElement(
         'div',
         null,
@@ -28938,12 +28977,12 @@ var App = function (_React$Component) {
                   _react2.default.createElement(
                     'a',
                     { href: '#' },
-                    _react2.default.createElement('img', { src: this.state.user.myPic, className: 'prileImg' }),
+                    _react2.default.createElement('img', { src: this.props.user.myPic, className: 'prileImg' }),
                     ' ',
                     _react2.default.createElement(
                       'span',
                       { className: 'profileName' },
-                      this.state.user.name
+                      this.props.user.name
                     )
                   )
                 ),
@@ -28957,25 +28996,7 @@ var App = function (_React$Component) {
             _react2.default.createElement(
               'div',
               { className: 'col-md-9' },
-              _react2.default.createElement(_Events2.default, { events: this.state.events })
-            )
-          )
-        ),
-        _react2.default.createElement(
-          'h1',
-          null,
-          'Our events:',
-          _react2.default.createElement(
-            'div',
-            null,
-            _react2.default.createElement(
-              'button',
-              _defineProperty({ type: 'button', className: 'btn btn-default' }, 'className', className),
-              _react2.default.createElement(
-                _reactRouterDom.Link,
-                { to: '/addEvent' },
-                'Add event'
-              )
+              _react2.default.createElement(_Events2.default, { user: this.props.user, events: this.state.events })
             )
           )
         )
@@ -29174,6 +29195,517 @@ var App = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = App;
+
+/***/ }),
+/* 263 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(16);
+
+var _axios = __webpack_require__(22);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var addEvent = function (_React$Component) {
+  _inherits(addEvent, _React$Component);
+
+  function addEvent(props) {
+    _classCallCheck(this, addEvent);
+
+    var _this = _possibleConstructorReturn(this, (addEvent.__proto__ || Object.getPrototypeOf(addEvent)).call(this, props));
+
+    _this.handleSubmit = _this.handleSubmit.bind(_this);
+    _this.handleChange = _this.handleChange.bind(_this);
+    _this.today = _this.today.bind(_this);
+    _this.state = {
+      title: "",
+      desc: "",
+      pic: "",
+      participants_amount: 10,
+      user: _this.props.user,
+      date: "",
+      category: "shabat",
+      location: {
+        city: "",
+        street: "",
+        num: 0
+      }
+    };
+    return _this;
+  }
+  // send the vent data to the server
+
+
+  _createClass(addEvent, [{
+    key: 'handleSubmit',
+    value: function handleSubmit(event) {
+      event.preventDefault();
+      console.log("hi");
+      console.log(this.state);
+      _axios2.default.post('/create_event', {
+        title: this.state.title,
+        desc: this.state.desc,
+        pic: this.state.pic,
+        date: this.state.date,
+        category: this.state.category,
+        location: {
+          city: this.state.location.city,
+          street: this.state.location.street,
+          num: this.state.location.num
+        },
+        participants_amount: this.state.participants_amount,
+        createdby: this.props.user
+      }).then(function (res) {
+        // redirect to the event page
+      }).catch(function (err, res) {
+        //if status code 401 - redirect login, else show error. 
+      });
+    }
+    // set the category with data from select from
+
+  }, {
+    key: 'handleChange',
+    value: function handleChange(event) {
+      this.setState({ category: event.target.value });
+    }
+
+    // cteate today date and set state of the date
+
+  }, {
+    key: 'today',
+    value: function today() {
+      var today = new Date();
+      var dd = today.getDate();
+      var mm = today.getMonth() + 1; //January is 0!
+      var yyyy = today.getFullYear();
+      if (dd < 10) {
+        dd = '0' + dd;
+      }
+      if (mm < 10) {
+        mm = '0' + mm;
+      }
+      today = yyyy + '-' + dd + '-' + mm;
+      this.setState({ date: today });
+    }
+    // use before the rendering
+
+  }, {
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      this.today();
+      // get user info fro DB
+      // axios.get(`/profile`, {
+      //  params:{ _id: this.state.user.id
+      // }})
+      //   .then(res => {
+      //     var User = res.data;
+      //     this.setState({ user: User });
+      //   });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      console.log(this.props.user);
+      return _react2.default.createElement(
+        'div',
+        { className: 'container' },
+        _react2.default.createElement(
+          'h2',
+          null,
+          'Add your event!'
+        ),
+        _react2.default.createElement(
+          'form',
+          { action: '#', id: 'getAddEventForm', onSubmit: this.handleSubmit },
+          _react2.default.createElement(
+            'div',
+            { className: 'form-group' },
+            _react2.default.createElement(
+              'label',
+              { htmlFor: 'Title' },
+              'Title :'
+            ),
+            _react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'title', placeholder: 'Enter Event Title', value: this.state.title, onChange: function onChange(event) {
+                return _this2.setState({ title: event.target.value });
+              } })
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'form-group' },
+            _react2.default.createElement(
+              'label',
+              { htmlFor: 'desc' },
+              'Enter description of the event:'
+            ),
+            _react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'desc', placeholder: 'Enter description', value: this.state.desc, onChange: function onChange(event) {
+                return _this2.setState({ desc: event.target.value });
+              } })
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'form-group' },
+            _react2.default.createElement(
+              'label',
+              { htmlFor: 'pic' },
+              'Enter picture url for the event:'
+            ),
+            _react2.default.createElement('input', { type: 'pic', className: 'form-control', id: 'pic', placeholder: 'Enter picture url', value: this.state.pic, onChange: function onChange(event) {
+                return _this2.setState({ pic: event.target.value });
+              } })
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'form-group' },
+            _react2.default.createElement(
+              'label',
+              { htmlFor: 'pic' },
+              'Enter picture url for the event:'
+            ),
+            _react2.default.createElement('input', { type: 'date', className: 'form-control', value: this.state.date, onChange: function onChange(event) {
+                return _this2.setState({ date: event.target.value });
+              } })
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'form-group' },
+            _react2.default.createElement(
+              'label',
+              { htmlFor: 'participants_amount' },
+              'Enter how many people can sign in for the event:'
+            ),
+            _react2.default.createElement('input', { type: 'number', required: 'true', className: 'form-control', id: 'participants_amount', placeholder: 'Enter participants_amount', value: this.state.participants_amount, onChange: function onChange(event) {
+                return _this2.setState({ participants_amount: event.target.value });
+              } })
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'form-group' },
+            _react2.default.createElement(
+              'label',
+              null,
+              'Pick The Category Of the Event:',
+              _react2.default.createElement(
+                'select',
+                { value: this.state.value, onChange: this.handleChange },
+                _react2.default.createElement(
+                  'option',
+                  { value: 'shabat' },
+                  'Shabat'
+                ),
+                _react2.default.createElement(
+                  'option',
+                  { value: 'sport' },
+                  'Sport'
+                ),
+                _react2.default.createElement(
+                  'option',
+                  { value: 'art' },
+                  'Art'
+                ),
+                _react2.default.createElement(
+                  'option',
+                  { value: 'meetUp' },
+                  'Meet Up'
+                )
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'h2',
+            null,
+            'Adress'
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'form-group' },
+            _react2.default.createElement(
+              'label',
+              { htmlFor: 'city' },
+              'City:'
+            ),
+            _react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'city', placeholder: 'Enter The City', value: this.state.location.city, onChange: function onChange(event) {
+                var location = Object.assign({}, _this2.state.location, { city: event.target.value });_this2.setState({ location: location });
+              } })
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'form-group' },
+            _react2.default.createElement(
+              'label',
+              { htmlFor: 'street' },
+              'Street:'
+            ),
+            _react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'street', placeholder: 'Enter The Street', value: this.state.location.street, onChange: function onChange(event) {
+                var location = Object.assign({}, _this2.state.location, { street: event.target.value });_this2.setState({ location: location });
+              } })
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'form-group' },
+            _react2.default.createElement(
+              'label',
+              { htmlFor: 'numHouse' },
+              'Number Of The House:'
+            ),
+            _react2.default.createElement('input', { type: 'number', className: 'form-control', id: 'numHouse', placeholder: 'Enter The Number Of The House', value: this.state.location.num, onChange: function onChange(event) {
+                var location = Object.assign({}, _this2.state.location, { num: event.target.value });_this2.setState({ location: location });
+              } })
+          ),
+          _react2.default.createElement(
+            'button',
+            { type: 'submit', className: 'btn btn-default' },
+            'Submit'
+          )
+        )
+      );
+    }
+  }]);
+
+  return addEvent;
+}(_react2.default.Component);
+
+exports.default = addEvent;
+
+/***/ }),
+/* 264 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _axios = __webpack_require__(22);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var EditEvent = function (_React$Component) {
+    _inherits(EditEvent, _React$Component);
+
+    function EditEvent(props) {
+        _classCallCheck(this, EditEvent);
+
+        var _this = _possibleConstructorReturn(this, (EditEvent.__proto__ || Object.getPrototypeOf(EditEvent)).call(this, props));
+
+        _this.sendEdit = _this.sendEdit.bind(_this);
+        _this.state = {
+            event_id: _this.props.eventObj._id,
+            title: _this.props.eventObj.title,
+            desc: _this.props.eventObj.desc,
+            category: _this.props.eventObj.category,
+            pic: _this.props.eventObj.pic,
+            participants_amount: _this.props.eventObj.participants_amount,
+            date: _this.props.eventObj.date,
+            location: _this.props.eventObj.location
+        };
+        return _this;
+    }
+
+    _createClass(EditEvent, [{
+        key: 'sendEdit',
+        value: function sendEdit() {
+            var _this2 = this;
+
+            // let user_obj = JSON.parse(localStorage.User)
+            _axios2.default.put('/edit_event/' + this.state.event_id, {
+                title: this.state.title,
+                desc: this.state.desc,
+                category: this.state.category,
+                location: {
+                    city: this.state.location.city,
+                    street: this.state.location.street,
+                    num: this.state.location.num
+                },
+                pic: this.state.pic,
+                participants_amount: this.state.participants_amount,
+                date: this.state.date
+            }).then(function (res) {
+
+                window.location.replace('http://localhost:3000/event-page/' + _this2.state.event_id);
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _this3 = this;
+
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    'h2',
+                    null,
+                    'Add your event!'
+                ),
+                _react2.default.createElement(
+                    'form',
+                    { action: '#', id: 'getAddEventForm', onSubmit: this.sendEdit },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'form-group' },
+                        _react2.default.createElement(
+                            'label',
+                            { htmlFor: 'Title' },
+                            'Title :'
+                        ),
+                        _react2.default.createElement('input', { type: 'text', required: 'true', className: 'form-control', id: 'title', placeholder: 'Enter Event Title', value: this.state.title, onChange: function onChange(event) {
+                                return _this3.setState({ title: event.target.value });
+                            } })
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'form-group' },
+                        _react2.default.createElement(
+                            'label',
+                            { htmlFor: 'Category' },
+                            'Category :'
+                        ),
+                        _react2.default.createElement('input', { type: 'text', required: 'true', className: 'form-control', id: 'category', placeholder: 'Enter Event category', value: this.state.category, onChange: function onChange(event) {
+                                return _this3.setState({ category: event.target.value });
+                            } })
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'form-group' },
+                        _react2.default.createElement(
+                            'label',
+                            { htmlFor: 'desc' },
+                            'Enter description of the event:'
+                        ),
+                        _react2.default.createElement('input', { type: 'text', required: 'true', className: 'form-control', id: 'desc', placeholder: 'Enter description', value: this.state.desc, onChange: function onChange(event) {
+                                return _this3.setState({ desc: event.target.value });
+                            } })
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'form-group' },
+                        _react2.default.createElement(
+                            'label',
+                            { htmlFor: 'pic' },
+                            'Enter picture url for the event:'
+                        ),
+                        _react2.default.createElement('input', { type: 'text', required: 'true', className: 'form-control', id: 'pic', placeholder: 'Enter picture url', value: this.state.pic, onChange: function onChange(event) {
+                                return _this3.setState({ pic: event.target.value });
+                            } })
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'form-group' },
+                        _react2.default.createElement(
+                            'label',
+                            { htmlFor: 'participants_amount' },
+                            'Enter how many people can sign in for the event:'
+                        ),
+                        _react2.default.createElement('input', { type: 'number', required: 'true', className: 'form-control', id: 'participants_amount', placeholder: 'Enter participants_amount', value: this.state.participants_amount, onChange: function onChange(event) {
+                                return _this3.setState({ participants_amount: event.target.value });
+                            } })
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'form-group' },
+                        _react2.default.createElement(
+                            'label',
+                            { htmlFor: 'date' },
+                            'Enter the date for the event:'
+                        ),
+                        _react2.default.createElement('input', { type: 'text', required: 'true', className: 'form-control', id: 'date', placeholder: 'Enter date', value: this.state.date, onChange: function onChange(event) {
+                                return _this3.setState({ date: event.target.value });
+                            } })
+                    ),
+                    _react2.default.createElement(
+                        'h2',
+                        null,
+                        'Adress'
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'form-group' },
+                        _react2.default.createElement(
+                            'label',
+                            { htmlFor: 'city' },
+                            'City:'
+                        ),
+                        _react2.default.createElement('input', { type: 'text', required: 'true', className: 'form-control', id: 'city', placeholder: 'Enter The City', value: this.state.location.city, onChange: function onChange(event) {
+                                var location = Object.assign({}, _this3.state.location, { city: event.target.value });_this3.setState({ location: location });
+                            } })
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'form-group' },
+                        _react2.default.createElement(
+                            'label',
+                            { htmlFor: 'street' },
+                            'Street:'
+                        ),
+                        _react2.default.createElement('input', { type: 'text', required: 'true', className: 'form-control', id: 'street', placeholder: 'Enter The Street', value: this.state.location.street, onChange: function onChange(event) {
+                                var location = Object.assign({}, _this3.state.location, { street: event.target.value });_this3.setState({ location: location });
+                            } })
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'form-group' },
+                        _react2.default.createElement(
+                            'label',
+                            { htmlFor: 'numHouse' },
+                            'Number Of The House:'
+                        ),
+                        _react2.default.createElement('input', { type: 'number', required: 'true', className: 'form-control', id: 'numHouse', placeholder: 'Enter The Number Of The House', value: this.state.location.num, onChange: function onChange(event) {
+                                var location = Object.assign({}, _this3.state.location, { num: event.target.value });_this3.setState({ location: location });
+                            } })
+                    ),
+                    _react2.default.createElement(
+                        'button',
+                        { type: 'submit', required: 'true', className: 'btn btn-default' },
+                        'Submit'
+                    )
+                )
+            );
+        }
+    }]);
+
+    return EditEvent;
+}(_react2.default.Component);
+
+exports.default = EditEvent;
 
 /***/ })
 /******/ ]);

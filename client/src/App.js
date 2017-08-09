@@ -3,6 +3,8 @@ import ReactDom from 'react-dom';
 import Header from './OpenEvents/common/Header';
 import Register from './OpenEvents/common/RegisterForm';
 import Routesss from './Routes';
+import axios from 'axios';
+
 import {BrowserRouter} from 'react-router-dom';
 
 class App extends React.Component {
@@ -17,10 +19,10 @@ constructor(props) {
 
 
 //componentdidmount 
-componentDidMount(){
+componentWillMount(){
   if(localStorage.User) {
     let user = JSON.parse(localStorage.User);
-      this.setState({ user: user });
+   this.updateUser(user);
       console.log(user.name);
      
   }
@@ -33,6 +35,18 @@ componentDidMount(){
   }
   updateUser(user){
     this.setState({user:user});
+    // getting the user from DB
+    axios.get(`/profile`, {
+      params: {
+        _id: user.id
+      }
+    })
+      .then(res => {
+        var User = res.data;
+        this.setState({ user: User });
+      });
+  
+
   }
   render() {
     return (

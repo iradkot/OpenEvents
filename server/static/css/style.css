@@ -194,6 +194,8 @@ img.prileImg {
     border-radius: 50%;
 }
 .profilePointer {
+  border: 0.5px solid transparent;
+    box-sizing: border-box;
   width: 100%;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -202,5 +204,41 @@ img.prileImg {
 .profilePointer:hover {
     background-color: #f3f3f3;
     border: 0.5px solid grey;
+    box-sizing: border-box;
     border-radius: 2px;
+}
+/*All Events PAge*/
+.event {
+    border: 0.5px solid grey;
+    height: 500px;
+    margin-bottom: 6px;
+    width: 49%;
+    margin-right: 7px;
+    overflow: hidden;
+}
+/*IMG Response on the event div*/
+img.img-responsive {
+    box-shadow: 0 6px 6px -2px grey;
+        height: 50%;
+    width: 100%;
+}
+.eventProPic {
+    border-radius: 50%;
+    height: 30px;
+}
+.event h3{
+color: #625D72;
+}
+ .event p {
+    margin-bottom: 1em;
+    margin-top: 1em;
+    line-height: 2;
+    color: #1D2129;
+    line-height: 20px;
+}
+
+
+
+.profileName {
+    color: #625D72;
 }

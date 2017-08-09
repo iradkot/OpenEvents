@@ -9,6 +9,7 @@ import AllEvents from './OpenEvents/allEvents';
 import Register from './OpenEvents/common/RegisterForm';
 import Profile from './OpenEvents/Profile';
 import Authentication from './OpenEvents/Athentication';
+import Addevent from './OpenEvents/AddEvent';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 
@@ -26,7 +27,7 @@ const Routesss = (props) => (
             <Route name="login" exact path='/login' component={SignIn} />
             <Route name="profile" exact path={'/profile/'+props.user.name} 
             render={() => <Profile user={props.user}/>} />
-            <Route exact path='/addEvent' component={addEvent} />
+            <Route exact path='/addEvent' render={()=> <Addevent user={props.user}/>} />
             <Route path='/event-page/:eventid' component={EventPage} />
             <Route exact path='/register' component={Register} />
             <Route path="*" component={Page404} />
