@@ -51,7 +51,10 @@ app.get('/events', function(req,res,next){
 })
 // get event by id
 app.get('/event/:_id', function(req, res,next){
-  Event.findById(req.params._id, handler(res,next))
+  Event.findById(req.params._id).populate('participants').exec(function(err, event) {
+    if (err) throw err;
+    res.json(event);
+  })
 })
 app.get('/users', function(req,res,next){
     User.find(handler(res,next));

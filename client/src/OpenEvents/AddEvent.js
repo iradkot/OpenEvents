@@ -99,9 +99,13 @@ handleChange(event) {
             <input type="pic" className="form-control" id="pic" placeholder="Enter picture url" value={this.state.pic} onChange={(event) => this.setState({ pic: event.target.value })} />
           </div>
           <div className="form-group">
-            <label htmlFor="pic">Enter picture url for the event:</label>
+            <label htmlFor="date">Enter the date of the event:</label>
             <input type="date" className="form-control"  value={this.state.date} onChange={(event) => this.setState({ date: event.target.value })} />
           </div>
+          {/* <div className="form-group">
+            <label htmlFor="time">Enter the time of the event:</label>
+            <input type="time" className="form-control" value={this.state.time} onChange={(event) => console.log(event)}/>
+          </div> */}
             {/*participant amount  */}
           <div className="form-group">
             <label htmlFor="participants_amount">Enter how many people can sign in for the event:</label>

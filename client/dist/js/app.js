@@ -28474,6 +28474,25 @@ var EventPage = function (_React$Component) {
             }
         }
     }, {
+        key: 'renderParticipants',
+        value: function renderParticipants() {
+            // console.log(this.props);
+            if (this.state.eventObj.participants) {
+                return this.state.eventObj.participants.map(function (guest, index) {
+                    return _react2.default.createElement(
+                        'div',
+                        { className: 'col-md-6 guests', key: index },
+                        _react2.default.createElement('img', { className: 'img-responsive', src: guest.myPic }),
+                        _react2.default.createElement(
+                            'h3',
+                            null,
+                            guest.name
+                        )
+                    );
+                });
+            }
+        }
+    }, {
         key: 'leaveEvent',
         value: function leaveEvent() {
             var _this3 = this;
@@ -28518,10 +28537,17 @@ var EventPage = function (_React$Component) {
                     _react2.default.createElement(
                         'div',
                         { className: 'row' },
+                        _react2.default.createElement('img', { className: 'img-responsive', src: this.state.eventObj.pic, alt: this.state.eventObj.title }),
+                        _react2.default.createElement(
+                            'h1',
+                            { className: 'text-center' },
+                            this.state.eventObj.title
+                        ),
                         'And the event id is - ',
                         this.props.match.params.eventid,
                         ', and the object is - ',
-                        this.state.eventObj.title
+                        this.state.eventObj.title,
+                        this.renderParticipants()
                     ),
                     _react2.default.createElement(
                         'h1',
@@ -28567,12 +28593,16 @@ var EventPage = function (_React$Component) {
                     //checks if user joined allready to the event
                     var user_obj = JSON.parse(localStorage.User);
                     var user_id = user_obj.id;
-                    console.log(user_id);
-                    console.log(that.state.eventObj.createdby._id);
+                    console.log('the event object:');
+                    console.log(that.state.eventObj);
+
                     var eventFull;
-                    if (that.state.eventObj.participants.indexOf(user_id) > -1) {
-                        that.setState({ participate: true });
-                    } else if (that.state.eventObj.createdby._id === user_id) {
+                    for (var i = 0; i < that.state.eventObj.participants.length; i++) {
+                        if (that.state.eventObj.participants[i]._id === user_id) {
+                            that.setState({ participate: true });
+                        }
+                    }
+                    if (that.state.eventObj.createdby._id === user_id) {
                         that.setState({ eventOwner: true });
                     }
                 }
@@ -28782,8 +28812,8 @@ var addEvent = function (_React$Component) {
             { className: 'form-group' },
             _react2.default.createElement(
               'label',
-              { htmlFor: 'pic' },
-              'Enter picture url for the event:'
+              { htmlFor: 'date' },
+              'Enter the date of the event:'
             ),
             _react2.default.createElement('input', { type: 'date', className: 'form-control', value: this.state.date, onChange: function onChange(event) {
                 return _this2.setState({ date: event.target.value });
@@ -28951,6 +28981,7 @@ var App = function (_React$Component) {
       // get events from DB
       _axios2.default.get('/events').then(function (res) {
         var arrEvent = res.data;
+        console.log(arrEvent);
         _this2.setState({ events: arrEvent });
       });
     }
@@ -28983,6 +29014,26 @@ var App = function (_React$Component) {
               ' ',
               'Crate Evnent'
             )
+          ),
+          _react2.default.createElement(
+            'a',
+            { className: 'btn btn-large btn-block btn-default', href: '#', role: 'button' },
+            'events created'
+          ),
+          _react2.default.createElement(
+            'div',
+            null,
+            'events created:'
+          ),
+          _react2.default.createElement(
+            'a',
+            { className: 'btn btn-large btn-block btn-default', href: '#', role: 'button' },
+            'events joined'
+          ),
+          _react2.default.createElement(
+            'div',
+            null,
+            'events joined:'
           ),
           _react2.default.createElement(
             'h3',
@@ -29420,8 +29471,8 @@ var addEvent = function (_React$Component) {
             { className: 'form-group' },
             _react2.default.createElement(
               'label',
-              { htmlFor: 'pic' },
-              'Enter picture url for the event:'
+              { htmlFor: 'date' },
+              'Enter the date of the event:'
             ),
             _react2.default.createElement('input', { type: 'date', className: 'form-control', value: this.state.date, onChange: function onChange(event) {
                 return _this2.setState({ date: event.target.value });

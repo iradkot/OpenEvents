@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var user = require('./user.js');
 
 //schema of the individual user 
 var eventSchema = new mongoose.Schema({
@@ -12,7 +13,7 @@ var eventSchema = new mongoose.Schema({
       num: Number, 
   },
   participants_amount: Number,
-  participants: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
+  participants: [{type: mongoose.Schema.Types.ObjectId, ref: 'user'}],
   date: { type: Date, default: Date.now },
   createdby: mongoose.Schema.Types.Mixed
 });

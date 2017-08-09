@@ -71,6 +71,15 @@ class EventPage extends React.Component {
             this.setState({ loading: false });
         }
     }
+    renderParticipants() {
+        // console.log(this.props);
+        if (this.state.eventObj.participants) {
+            return this.state.eventObj.participants.map((guest, index) => <div className="col-md-6 guests" key={index}>
+                <img className="img-responsive" src={guest.myPic} />
+                <h3>{guest.name}</h3>
+            </div>);
+        }
+    }
     leaveEvent() {
         this.setState({ loading: true });
         if (registerRef()) {
@@ -103,7 +112,7 @@ class EventPage extends React.Component {
 
             return (
                 <div>
-                <EditEvent eventObj={this.state.eventObj} />
+                    <EditEvent eventObj={this.state.eventObj} />
                 </div>
             )
         }
@@ -111,8 +120,11 @@ class EventPage extends React.Component {
             return (
                 <div className="container">
                     <div className="row">
+                        <img className="img-responsive" src={this.state.eventObj.pic} alt={this.state.eventObj.title} />
+                        <h1 className="text-center">{this.state.eventObj.title}</h1>
                         And the event id is - {this.props.match.params.eventid},
                       and the object is - {this.state.eventObj.title}
+                        {this.renderParticipants()}
                     </div>
                     <h1 className={class_loading}>Loading!</h1>
                     <button type="button" onClick={this.joinEvent} className={class_join_btn}>Join Event!</button>
@@ -137,13 +149,16 @@ class EventPage extends React.Component {
                     //checks if user joined allready to the event
                     let user_obj = JSON.parse(localStorage.User);
                     let user_id = user_obj.id;
-                    console.log(user_id);
-                    console.log(that.state.eventObj.createdby._id);
+                    console.log('the event object:');
+                    console.log(that.state.eventObj);
+
                     var eventFull;
-                    if (that.state.eventObj.participants.indexOf(user_id) > -1) {
-                        that.setState({ participate: true });
+                    for (let i = 0; i < that.state.eventObj.participants.length; i++) {
+                        if (that.state.eventObj.participants[i]._id === user_id) {
+                            that.setState({ participate: true });
+                        }
                     }
-                    else if (that.state.eventObj.createdby._id === user_id) {
+                    if (that.state.eventObj.createdby._id === user_id) {
                         that.setState({ eventOwner: true });
                     }
                 }

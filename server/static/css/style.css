@@ -261,6 +261,13 @@ button.btnJoin.facebook {
     color: #625D72;
 }
 
+<<<<<<< HEAD
 nav.navbar.sti {
     box-shadow: 0 1px 5px -2px grey;
 }
+=======
+.guests {
+      width: 100px;
+    border-radius: 50%;
+}
+>>>>>>> 9a088ddc26203e420807f92ab5b7d0b8b82077d8
