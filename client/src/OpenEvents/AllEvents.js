@@ -14,12 +14,9 @@ class App extends React.Component {
       events: [],
       user: this.props.user
     }
-    console.log(this.props.user)
   }
 
   componentWillMount() {
-    console.log("allEvents user")
-    console.log(this.state.user)
     this.setState({ user: this.props.user })
     // getting the user from DB
     axios.get(`/profile`, {

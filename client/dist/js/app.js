@@ -12364,7 +12364,6 @@ var App = function (_React$Component) {
       if (localStorage.User) {
         var user = JSON.parse(localStorage.User);
         this.setState({ user: user });
-        console.log(user.name);
       }
     }
     //  check if thwre is a user in the localstorage  - put in the state
@@ -24557,7 +24556,6 @@ var App = function (_React$Component) {
       if (localStorage.length > 0) {
         var user1 = JSON.parse(localStorage.User);
         this.setState({ user: user1 });
-        console.log(user1.name);
       }
     }
     // logout() {
@@ -28375,7 +28373,6 @@ var EventPage = function (_React$Component) {
     _createClass(EventPage, [{
         key: 'componentWillMount',
         value: function componentWillMount() {
-            console.log(this.state.eventOwner);
             this.getEvent();
         }
     }, {
@@ -28515,9 +28512,6 @@ var EventPage = function (_React$Component) {
                     var user_obj = JSON.parse(localStorage.User);
                     var user_id = user_obj.id;
                     var eventFull;
-                    console.log(that.state.eventOwner);
-                    console.log(that.state.participate);
-
                     if (that.state.eventObj.participants.indexOf(user_id) > -1) {
                         that.setState({ participate: true });
                     } else if (that.state.eventObj.createdby === user_id) {
@@ -29108,7 +29102,6 @@ var App = function (_React$Component) {
       events: [],
       user: _this.props.user
     };
-    console.log(_this.props.user);
     return _this;
   }
 
@@ -29117,8 +29110,6 @@ var App = function (_React$Component) {
     value: function componentWillMount() {
       var _this2 = this;
 
-      console.log("allEvents user");
-      console.log(this.state.user);
       this.setState({ user: this.props.user });
       // getting the user from DB
       _axios2.default.get('/profile', {
@@ -29412,7 +29403,6 @@ var App = function (_React$Component) {
     _createClass(App, [{
         key: 'conected',
         value: function conected() {
-            console.log(this.props);
             var User = this.state;
             this.props.updateUser(User);
             localStorage.setItem("User", JSON.stringify(User));

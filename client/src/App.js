@@ -20,9 +20,7 @@ constructor(props) {
 componentDidMount(){
   if(localStorage.User) {
     let user = JSON.parse(localStorage.User);
-      this.setState({ user: user });
-      console.log(user.name);
-     
+      this.setState({ user: user });    
   }
 }
 //  check if thwre is a user in the localstorage  - put in the state

@@ -28,7 +28,6 @@ class EventPage extends React.Component {
         }
     }
     componentWillMount() {
-        console.log(this.state.eventOwner);
         this.getEvent();
 
     }
@@ -139,9 +138,6 @@ class EventPage extends React.Component {
                     let user_obj = JSON.parse(localStorage.User);
                     let user_id = user_obj.id;
                     var eventFull;
-                    console.log(that.state.eventOwner);
-                    console.log(that.state.participate);
-
                     if (that.state.eventObj.participants.indexOf(user_id) > -1) {
                         that.setState({ participate: true });
                     }
