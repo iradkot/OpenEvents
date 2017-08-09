@@ -242,3 +242,8 @@ color: #625D72;
 .profileName {
     color: #625D72;
 }
+
+.guests {
+      width: 100px;
+    border-radius: 50%;
+}

@@ -21,6 +21,7 @@ class App extends React.Component {
     axios.get(`/events`)
       .then(res => {
         const arrEvent = res.data;
+        console.log(arrEvent);
         this.setState({ events: arrEvent });
       });
   }
@@ -34,6 +35,14 @@ class App extends React.Component {
     } else {
       return <div>
       <Link to="/addEvent"><h5 className="profilePointer"><i className="fa fa-address-card-o" href="#" aria-hidden="true"></i>{' '}Crate Evnent</h5></Link>
+      <a className="btn btn-large btn-block btn-default" href="#" role="button">events created</a>
+      <div> 
+        events created:
+      </div>
+      <a className="btn btn-large btn-block btn-default" href="#" role="button">events joined</a>
+      <div> 
+        events joined:
+      </div>
       <h3 className="noEvTit">You have no events</h3>
       </div>
     }

@@ -17,7 +17,7 @@ class Events extends React.Component {
                 <img className="img-responsive" src={event.pic} />
                 <h3>{event.title}</h3>
                 <img className="prileImg eventProPic"  src={event.createdby.myPic} />{'    '}<span className="profileName">{event.createdby.name} Create the Event</span>
-                <p>Date - {event.date} </p>
+                <p>Date - {event.date.substring(0,10)} </p>
                 <p>{event.desc} </p>
             </Link>
         </div>);
