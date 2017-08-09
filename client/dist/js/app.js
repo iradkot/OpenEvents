@@ -12254,27 +12254,69 @@ var Events = function (_React$Component) {
                             'h3',
                             null,
                             event.title
-                        ),
-                        _react2.default.createElement('img', { className: 'prileImg eventProPic', src: event.createdby.myPic }),
+                        )
+                    ),
+                    _react2.default.createElement('img', { width: '30', className: 'numPeople', src: 'images/numPeople.png' }),
+                    _react2.default.createElement(
+                        'span',
+                        { className: 'numPeople' },
+                        event.participants.length
+                    ),
+                    _react2.default.createElement('div', { className: 'clearfix' }),
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        event.desc,
+                        ' '
+                    ),
+                    _react2.default.createElement('img', { className: 'prileImg eventProPic', src: event.createdby.myPic }),
+                    '    ',
+                    _react2.default.createElement(
+                        'span',
+                        { className: 'profileName' },
+                        event.createdby.name,
+                        ' Create the Event'
+                    ),
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        _react2.default.createElement('i', { className: 'fa fa-clock-o', 'aria-hidden': 'true' }),
+                        ' - ',
+                        event.date.substring(0, 10),
+                        ' '
+                    ),
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        _react2.default.createElement('img', { width: '18', className: '', src: 'images/location.png' }),
+                        ' - ',
+                        event.location.city,
+                        ',',
+                        event.location.street,
+                        '-',
+                        event.location.num,
+                        ' ',
                         '    ',
+                        ' ',
                         _react2.default.createElement(
-                            'span',
-                            { className: 'profileName' },
-                            event.createdby.name,
-                            ' Create the Event'
+                            'a',
+                            { href: '#' },
+                            ' Get Direction'
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        _react2.default.createElement(
+                            'button',
+                            { className: 'btnJoin' },
+                            ' join'
                         ),
+                        ' ',
                         _react2.default.createElement(
-                            'p',
-                            null,
-                            'Date - ',
-                            event.date,
-                            ' '
-                        ),
-                        _react2.default.createElement(
-                            'p',
-                            null,
-                            event.desc,
-                            ' '
+                            'button',
+                            { className: 'btnJoin facebook' },
+                            ' SHARE ON FACEBOOK'
                         )
                     )
                 );

@@ -60,7 +60,7 @@ header h1 {
 }
 
 .sti {
-  background-color: #fff;
+    background-color: #fff;
   position: absolute;
   bottom: 0;
   height: 60px;
@@ -210,7 +210,7 @@ img.prileImg {
 /*All Events PAge*/
 .event {
     border: 0.5px solid grey;
-    height: 500px;
+    height: 610px;
     margin-bottom: 6px;
     width: 49%;
     margin-right: 7px;
@@ -228,6 +228,8 @@ img.img-responsive {
 }
 .event h3{
 color: #625D72;
+width: 80%;
+    float: left;
 }
  .event p {
     margin-bottom: 1em;
@@ -236,9 +238,29 @@ color: #625D72;
     color: #1D2129;
     line-height: 20px;
 }
+img.numPeople {
+    float: right;
+    margin-top: 5%;
+}span.numPeople {
+    float: right;
+    margin-top: 5.8%;
+}
 
-
-
+button.btnJoin {
+    padding: 5px 15px;
+    border-radius: 20px;
+    border: 0px;
+    background-color: #ececec;
+    font-weight: bold;
+}
+button.btnJoin.facebook {
+    color: #4267B2;
+    font-weight: bold;
+}
 .profileName {
     color: #625D72;
+}
+
+nav.navbar.sti {
+    box-shadow: 0 1px 5px -2px grey;
 }
