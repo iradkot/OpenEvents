@@ -24,32 +24,32 @@ class App extends React.Component {
   // }
 
   // the animation of the menu
-  componentDidMount() {
-    console.log("works sticky")
-    $(function () {
-      $(window).scroll(function () {
-        var winTop = $(window).scrollTop();
-        if (winTop >= 30) {
-          $("body").addClass("sticky-header");
-        } else {
-          $("body").removeClass("sticky-header");
-        }
-      })
-    })
-  }
+  // componentDidMount() {
+  //   console.log("works sticky")
+  //   $(function () {
+  //     $(window).scroll(function () {
+  //       var winTop = $(window).scrollTop();
+  //       if (winTop >= 30) {
+  //         $("body").addClass("sticky-header");
+  //       } else {
+  //         $("body").removeClass("sticky-header");
+  //       }
+  //     })
+  //   })
+  // }
 
   render() {
-    let class_logout = localStorage.User ? "btn navbar-btn btn-secondry" : "noShow";
-    let class_login = localStorage.User ? "noShow" : "btn navbar-btn btn-primary";
+    let class_logout = localStorage.User ? "log logAnim" : "noShow";
+    let class_login = localStorage.User ? "noShow" :  "log logAnim";
     return (
       <header>
         <nav className="navbar  sti">
-          <div className="container-fluid">
+          <div className="container">
             <div className="collapse navbar-collapse" id="myNavbar">
-              <ul className="nav navbar-nav">
+              <ul className="nav navbar-nav pageNav">
                 <li><Link to="/">Home</Link></li>
                 <li><Link to="/about">about</Link></li>
-                <li><Link to={'/profile/' + this.state.user.name}>Profile</Link></li>
+                {/*<li><Link to={'/profile/' + this.state.user.name}>Profile</Link></li>*/}
               </ul>
               <ul className="nav navbar-nav navbar-right">
                 <li><a target="_self" href="/auth/facebook" className={class_login}><span className="glyphicon glyphicon-log-in"></span> Login</a></li>

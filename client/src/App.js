@@ -40,7 +40,7 @@ componentDidMount(){
         <div>
           <Header logout={this.logout}/>
           {/* <Register /> */}
-          <Routesss updateUser={this.updateUser}/>
+          <Routesss updateUser={this.updateUser} user={this.state.user}/>
         </div>
       </BrowserRouter>
 
