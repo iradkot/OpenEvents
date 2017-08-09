@@ -113,7 +113,6 @@ app.put('/edit_event/:event_id', function (req, res, next) {
  
 //delete event
 app.delete('/deleteEvent/:eventId', function (req, res) {
-  console.log('dsa');
     Event.findOne({ _id: req.params.eventId }).remove().exec(handler(res));
 });
 
