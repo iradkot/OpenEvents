@@ -48,9 +48,20 @@ class EditEvent extends React.Component {
                         <input type="text" required="true" className="form-control" id="title" placeholder="Enter Event Title" value={this.state.title} onChange={(event) => this.setState({ title: event.target.value })} />
                     </div>
                     {/*category  */}
-                    <div className="form-group">
+                    {/*<div className="form-group">
                         <label htmlFor="Category">Category :</label>
                         <input type="text" required="true" className="form-control" id="category" placeholder="Enter Event category" value={this.state.category} onChange={(event) => this.setState({ category: event.target.value })} />
+                    </div>*/}
+                    <div className="form-group">
+                        <label>
+                            Event Category:
+                            <select value={this.state.value} onChange={this.handleChange}>
+                            <option value="shabat">Shabbat</option>
+                            <option value="sport">Sport</option>
+                            <option value="art">Art</option>
+                            <option value="meetUp">Meet-Up</option>
+                            </select>
+                        </label>
                     </div>
                     {/*desc  */}
                     <div className="form-group">

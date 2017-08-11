@@ -42,6 +42,7 @@ class addEvent extends React.Component {
         participants_amount: this.state.participants_amount,
         createdby: this.props.user
     }).then(function(res){
+      window.location.replace("http://localhost:3000/");
 // redirect to the event page
     }).catch(function(err,res){
 //if status code 401 - redirect login, else show error. 
@@ -84,22 +85,22 @@ handleChange(event) {
     console.log(this.props.user);
     return (
       <div className="container">
-        <h2>Add your event!</h2>
+        <h2>Customize Event!</h2>
         <form action="#" id="getAddEventForm" onSubmit={this.handleSubmit}>
           <div className="form-group">
-            <label htmlFor="Title">Title :</label>
+            <label htmlFor="Title">Event Title :</label>
             <input type="text" className="form-control" id="title" placeholder="Enter Event Title" value={this.state.title} onChange={(event) => this.setState({ title: event.target.value })} />
           </div>
           <div className="form-group">
-            <label htmlFor="desc">Enter description of the event:</label>
+            <label htmlFor="desc">Describe your event:</label>
             <input type="text" className="form-control" id="desc" placeholder="Enter description" value={this.state.desc} onChange={(event) => this.setState({ desc: event.target.value })} />
           </div>
           <div className="form-group">
-            <label htmlFor="pic">Enter picture url for the event:</label>
+            <label htmlFor="pic">Insert Picture:</label>
             <input type="pic" className="form-control" id="pic" placeholder="Enter picture url" value={this.state.pic} onChange={(event) => this.setState({ pic: event.target.value })} />
           </div>
           <div className="form-group">
-            <label htmlFor="date">Enter the date of the event:</label>
+            <label htmlFor="date">Event Date:</label>
             <input type="date" className="form-control"  value={this.state.date} onChange={(event) => this.setState({ date: event.target.value })} />
           </div>
           {/* <div className="form-group">
@@ -108,22 +109,22 @@ handleChange(event) {
           </div> */}
             {/*participant amount  */}
           <div className="form-group">
-            <label htmlFor="participants_amount">Enter how many people can sign in for the event:</label>
+            <label htmlFor="participants_amount">Event Capacity:</label>
             <input type="number" required="true" className="form-control" id="participants_amount" placeholder="Enter participants_amount" value={this.state.participants_amount} onChange={(event) => this.setState({participants_amount: event.target.value})} />
           </div>
           <div className="form-group">
            <label>
-             Pick The Category Of the Event:
+             Event Category:
             <select value={this.state.value} onChange={this.handleChange}>
-              <option value="shabat">Shabat</option>
+              <option value="shabat">Shabbat</option>
               <option value="sport">Sport</option>
               <option value="art">Art</option>
-             <option value="meetUp">Meet Up</option>
+             <option value="meetUp">Meet-Up</option>
             </select>
           </label>
           </div>
 
-          <h2>Adress</h2>
+          <h2>Address</h2>
           <div className="form-group">
             <label htmlFor="city">City:</label>
             <input type="text" className="form-control" id="city" placeholder="Enter The City" value={this.state.location.city} onChange={(event) => { const location = Object.assign({}, this.state.location, { city: event.target.value }); this.setState({ location }); }} />
@@ -134,7 +135,7 @@ handleChange(event) {
             <input type="text" className="form-control" id="street" placeholder="Enter The Street" value={this.state.location.street} onChange={(event) => { const location = Object.assign({}, this.state.location, { street: event.target.value }); this.setState({ location }); }} />
           </div>
           <div className="form-group">
-            <label htmlFor="numHouse">Number Of The House:</label>
+            <label htmlFor="numHouse">House Number:</label>
             <input type="number" className="form-control" id="numHouse" placeholder="Enter The Number Of The House" value={this.state.location.num} onChange={(event) => { const location = Object.assign({}, this.state.location, { num: event.target.value }); this.setState({ location }); }} />
           </div>
           <button type="submit" className="btn btn-default">Submit</button>

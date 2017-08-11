@@ -42,12 +42,14 @@ class App extends React.Component {
     let class_login = localStorage.User ? "noShow" : "log logAnim";
     return (
       <header>
+        <img className="logo" width="60" src="/images/logo.png"/>
         <nav className="navbar  sti">
+          
           <div className="container">
             <div className="collapse navbar-collapse" id="myNavbar">
               <ul className="nav navbar-nav pageNav">
                 <li><Link to="/">Home</Link></li>
-                <li><Link to="/about">about</Link></li>
+                <li><Link to="/about">About</Link></li>
                 {/*<li><Link to={'/profile/' + this.state.user.name}>Profile</Link></li>*/}
               </ul>
               

@@ -198,7 +198,7 @@ img.prileImg {
 .profilePointer {
   border: 0.5px solid transparent;
     box-sizing: border-box;
-  width: 100%;
+  width: 66%;
     padding-top: 10px;
     padding-bottom: 10px;
     padding-left: 5px;
@@ -209,6 +209,14 @@ img.prileImg {
     box-sizing: border-box;
     border-radius: 2px;
 }
+li.profilePointer.eventsJoind {
+    background-color: #f3f3f3;
+    border: 0.5px solid grey;
+    box-sizing: border-box;
+    border-radius: 2px;
+}
+
+
 /*All Events PAge*/
 div#myNavbar {
     width: 101.8%;
@@ -262,6 +270,7 @@ button.btnJoin {
 button.btnJoin.facebook {
     color: #4267B2;
     font-weight: bold;
+    margin-left: 5px;
 }
 .profileName {
     color: #625D72;
@@ -270,13 +279,42 @@ button.btnJoin.facebook {
 nav.navbar.sti {
     box-shadow: 0 1px 5px -2px grey;
 }
-
-/*SEARCH*/
-
+.guests {
+      width: 100px;
+    border-radius: 50%;
+}
 input.searchTerm {
-    width: 38.2%;
-    height: 32px;
+    width: 38%;
+    height: 34px;
+    border-radius: 5px;
+    border: 1px solid #BDBDBD;
     margin-right: 18.5%;
-    border-radius: 4px;
-    border: 1px solid #cbcaca;
+}
+img.logo {
+    position: relative;
+    right: 802px;
+    z-index: 2;
+    top: -6px;
+}
+img.img-responsive.participantImg {
+    border-radius: 50%;
+    width: 35px;
+}
+hr {
+    width: 65%;
+    margin-right: 135px;
+}
+hr.hrTitle {
+    width: 100%;
+    margin-right: 190px;
+}
+li.titleItem {
+    width: 74%;
+    position: relative;
+    right: 40px;
+    overflow: hidden;
+    color: #3185c3;
+}
+h4.myEventsTitle {
+    color: #44d9e6;
 }

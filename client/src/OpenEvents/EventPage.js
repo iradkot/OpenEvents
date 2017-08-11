@@ -75,7 +75,7 @@ class EventPage extends React.Component {
         // console.log(this.props);
         if (this.state.eventObj.participants) {
             return this.state.eventObj.participants.map((guest, index) => <div className="col-md-6 guests" key={index}>
-                <img className="img-responsive" src={guest.myPic} />
+                <img className="img-responsive participantImg"  src={guest.myPic} />
                 <h3>{guest.name}</h3>
             </div>);
         }
@@ -122,10 +122,11 @@ class EventPage extends React.Component {
                     <div className="row">
                         <img className="img-responsive" src={this.state.eventObj.pic} alt={this.state.eventObj.title} />
                         <h1 className="text-center">{this.state.eventObj.title}</h1>
-                        And the event id is - {this.props.match.params.eventid},
-                      and the object is - {this.state.eventObj.title}
-                        {this.renderParticipants()}
+                        <h4>{this.state.eventObj.desc}</h4>
+                        <span className="Participants"> Going to event<br/>{this.renderParticipants()}</span>
+                        
                     </div>
+                    <div> </div>
                     <h1 className={class_loading}>Loading!</h1>
                     <button type="button" onClick={this.joinEvent} className={class_join_btn}>Join Event!</button>
                     <button type="button" onClick={this.leaveEvent} className={class_leave_btn}>Leave Event.</button>
